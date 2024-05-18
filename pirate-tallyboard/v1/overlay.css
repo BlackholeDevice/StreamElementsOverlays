@@ -1,0 +1,31 @@
+* {
+    font-family: "{{fontType}}";
+    color: {{fontColor}};
+    font-size: {{fontSize}}px;
+    overflow: hidden;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: {{fontOutlineColor}};
+}
+
+.main-container {
+    margin-top: -10vh;
+    height: 100vh;
+}
+
+ul {
+    display: flex;
+    flex-direction: {{layout}};
+    padding-left: 0;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+li {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+span {
+    margin-right: {{labelSpacing}}px;
+}

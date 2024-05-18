@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pirate Tallyboard Configurator</title>
+    <style>
+        body {
+            background-color: #333333;
+            color: #ccc;
+        }
+
+        a:link {
+            color: #55e;
+        }
+        a:visited {
+           color: #EE1AEE;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>How to</h1>
+        <p>This guide will provide a rough how-to on how to use the Pirate Tallyboard overlay as well as provide a
+            simple configurator for adding new items to the board.</p>
+        <h3>Installation</h3>
+        <p>You can install this overlay one of two ways.</p>
+        <ul>
+            <li><a href="https://streamelements.com/dashboard/overlays/share/663937583614bc0afcd8aa9f">One click automatic installation</a></li>
+            <li>Manual Installation: Create a new Overlay in StreamElements, add a new Static / Custom -> Custom widget. Copy paste the following files into their respective tabs
+                <ol>
+                    <li><a href="overlay.html">html</a></li>
+                    <li><a href="overlay.css">css</a></li>
+                    <li><a href="overlay.js">js</a></li>
+                    <li><a href="fields.json">fields</a> For simple setup, <a href="#configurator">see below</a></li>
+                    <li>Data: Can be cleared</li>
+                </ol>
+            </li>
+        </ul>
+        <h3>Configuration</h3>
+        <h4>Font</h4>
+        <ol>
+            <li>Font: Font face to display text in</li>
+            <li>Font color: Font color</li>
+            <li>Font size: Size of the font in px, not pt</li>
+            <li>Outline color: Outline to highlight text to improve visibility. To disable, just set outline to the same
+                as the font
+            </li>
+        </ol>
+        <h4>Formatting</h4>
+        <ol>
+            <li>Layout: Whether to layout the list horizontally or vertically</li>
+            <li>Spacing: Space between icon and label for each item</li>
+            <li>Icon size: square size of the icon in pixels. Any image that is not square will be squished into a square</li>
+            <li>Decimal places: How many decimal places to show in abbreviated numbers. I.e, 1.23m. A value of 0 will cause it to display whole numbers only.</li>
+        </ol>
+        <h4>Reset</h4>
+        <ol>
+            <li>Reset command: Command to use to reset all items to 0. Command will only function while overlay is visible</li>
+            <li>Reset permission: What level of user is allowed to use the reset command. Permission hierarchy will allow all users at or above the selection to use the command. I.e, setting the value to "Subscriber" will still allow VIPs, Moderator, and Broadcaster to use the command.</li>
+        </ol>
+        <h4>Line X</h4>
+        <ol>
+            <li>Field Label: Text label to show on item. Can be left blank if no text is desired.</li>
+            <li>Field icon: Icon to show on item</li>
+            <li>Field command: Command to use for this item</li>
+            <li>Field type: Must select "Counter" or "Accumulator". Counters will count the number of times a thing as occurred. Accumulator will track a running total. When using an accumulator, values can be shorthanded using k or m abbreviations. I.e, 1230000 can be abbreviated as 1.23m</li>
+            <li>Command permission: What level of user is allowed to use the command. Permission hierarchy will allow all users at or above the selection to use the command. I.e, setting the value to "Subscriber" will still allow VIPs, Moderator, and Broadcaster to use the command.</li>
+        </ol>
+        <h1 id="configurator">Configuration Generator</h1>
+        <form>
+            <label>Number of items: <input type="number" value="1" id="numItems"></label>
+            <button onclick="onClick()" href="#">Copy fields.json to clipboard</button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        const template = '{\n' +
+            '  "fontType": {\n' +
+            '    "type": "googleFont",\n' +
+            '    "label": "Font",\n' +
+            '    "group": "Font"\n' +
+            '  },\n' +
+            '  "fontColor": {\n' +
+            '    "type": "colorpicker",\n' +
+            '    "label": "Font color",\n' +
+            '    "value": "rgb(255, 255, 255)",\n' +
+            '    "group": "Font"\n' +
+            '  },\n' +
+            '  "fontSize": {\n' +
+            '    "type": "number",\n' +
+            '    "label": "Font Size (px)",\n' +
+            '    "value": 14,\n' +
+            '    "group": "Font"\n' +
+            '  },\n' +
+            '  "fontOutlineColor": {\n' +
+            '    "type": "colorpicker",\n' +
+            '    "label": "Outline Color",\n' +
+            '    "value": "rgb(255, 255, 255)",\n' +
+            '    "group": "Font"\n' +
+            '  },\n' +
+            '  "layout": {\n' +
+            '    "type": "dropdown",\n' +
+            '    "label": "Layout",\n' +
+            '    "value": "column",\n' +
+            '    "options": {\n' +
+            '      "column": "Vertical",\n' +
+            '      "row": "Horizontal"\n' +
+            '    },\n' +
+            '    "group": "Formatting"\n' +
+            '  },\n' +
+            '  "labelSpacing": {\n' +
+            '    "type": "number",\n' +
+            '    "label": "Spacing (px)",\n' +
+            '    "value": 5,\n' +
+            '    "group": "Formatting"\n' +
+            '  },\n' +
+            '  "iconSize": {\n' +
+            '    "type": "number",\n' +
+            '    "label": "Icon Size (px)",\n' +
+            '    "value": 20,\n' +
+            '    "group": "Formatting"\n' +
+            '  },\n' +
+            '  "decimalPlaces": {\n' +
+            '    "type": "number",\n' +
+            '    "label": "Decimal places",\n' +
+            '    "value": 1,\n' +
+            '    "group": "Formatting"\n' +
+            '  },\n' +
+            '  "resetCommand": {\n' +
+            '    "type": "string",\n' +
+            '    "label": "Reset command",\n' +
+            '    "value": "!reset",\n' +
+            '    "group": "Reset"\n' +
+            '  },\n' +
+            '  "resetCommandPermission": {\n' +
+            '    "type": "dropdown",\n' +
+            '    "label": "Reset permission",\n' +
+            '    "value": "broadcaster",\n' +
+            '    "options": {\n' +
+            '      "broadcaster": "Broadcaster",\n' +
+            '      "moderator": "Moderator",\n' +
+            '      "vip": "VIP",\n' +
+            '      "subscriber": "Subscriber",\n' +
+            '      "everyone": "Everyone"\n' +
+            '    },\n' +
+            '    "group": "Reset"\n' +
+            '  },\n' +
+            '{{fields}}\n' +
+            '}';
+        const itemTemplate = '"field{{id}}label": {\n' +
+            '"type": "string",\n' +
+            '"label": "Field label",\n' +
+            '"group": "Line {{id}}"\n' +
+            '},\n' +
+            '"field{{id}}icon": {\n' +
+            '"type": "image-input",\n' +
+            '"label": "Field icon",\n' +
+            '"value": "",\n' +
+            '"group": "Line {{id}}"\n' +
+            '},\n' +
+            '"field{{id}}command": {\n' +
+            '"type": "string",\n' +
+            '"label": "Field command",\n' +
+            '"value": "!command",\n' +
+            '"group": "Line {{id}}"\n' +
+            '},\n' +
+            '"field{{id}}type": {\n' +
+            '"type": "dropdown",\n' +
+            '"label": "Field type",\n' +
+            '"value": "counter",\n' +
+            '"options": {\n' +
+            '"accumulate": "Accumulator",\n' +
+            '"counter": "Counter"\n' +
+            '},\n' +
+            '"group": "Line {{id}}"\n' +
+            '},\n' +
+            '"field{{id}}permission": {\n' +
+            '"type": "dropdown",\n' +
+            '"label": "Command permission",\n' +
+            '"value": "broadcaster",\n' +
+            '"options": {\n' +
+            '"broadcaster": "Broadcaster",\n' +
+            '"moderator": "Moderator",\n' +
+            '"vip": "VIP",\n' +
+            '"subscriber": "Subscriber",\n' +
+            '"everyone": "Everyone"\n' +
+            '},\n' +
+            '"group": "Line {{id}}"\n' +
+            '}';
+        function onClick() {
+            const items = +document.getElementById("numItems").value;
+            const lines = [];
+            for(let i = 1; i <= items; i++) {
+                lines.push(itemTemplate.replaceAll("{{id}}", `${i}`));
+            }
+            copy(template.replace("{{fields}}", lines.join(',')));
+        }
+
+        async function copy(text) {
+            await navigator.clipboard.writeText(text);
+        }
+    </script>
+</body>
+</html>

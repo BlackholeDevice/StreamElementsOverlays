@@ -1,0 +1,152 @@
+{
+  "fontType": {
+    "type": "googleFont",
+    "label": "Font",
+    "group": "Font"
+  },
+  "fontColor": {
+    "type": "colorpicker",
+    "label": "Font color",
+    "value": "rgb(255, 255, 255)",
+    "group": "Font"
+  },
+  "fontSize": {
+    "type": "number",
+    "label": "Font Size (px)",
+    "value": 14,
+    "group": "Font"
+  },
+  "fontOutlineColor": {
+    "type": "colorpicker",
+    "label": "Outline Color",
+    "value": "rgb(255, 255, 255)",
+    "group": "Font"
+  },
+  "layout": {
+    "type": "dropdown",
+    "label": "Layout",
+    "value": "column",
+    "options": {
+      "column": "Vertical",
+      "row": "Horizontal"
+    },
+    "group": "Formatting"
+  },
+  "labelSpacing": {
+    "type": "number",
+    "label": "Spacing (px)",
+    "value": 5,
+    "group": "Formatting"
+  },
+  "iconSize": {
+    "type": "number",
+    "label": "Icon Size (px)",
+    "value": 20,
+    "group": "Formatting"
+  },
+  "decimalPlaces": {
+    "type": "number",
+    "label": "Decimal places",
+    "value": 1,
+    "group": "Formatting"
+  },
+  "resetCommand": {
+    "type": "string",
+    "label": "Reset command",
+    "value": "!reset",
+    "group": "Reset"
+  },
+  "resetCommandPermission": {
+    "type": "dropdown",
+    "label": "Reset permission",
+    "value": "broadcaster",
+    "options": {
+      "broadcaster": "Broadcaster",
+      "moderator": "Moderator",
+      "vip": "VIP",
+      "subscriber": "Subscriber",
+      "everyone": "Everyone"
+    },
+    "group": "Reset"
+  },
+  "field1label": {
+    "type": "string",
+    "label": "Field label",
+    "value": "Field 1",
+    "group": "Line 1"
+  },
+  "field1icon": {
+    "type": "image-input",
+    "label": "Field icon",
+    "value": "",
+    "group": "Line 1"
+  },
+  "field1command": {
+    "type": "string",
+    "label": "Field command",
+    "value": "!command",
+    "group": "Line 1"
+  },
+  "field1type": {
+    "type": "dropdown",
+    "label": "Field type",
+    "options": {
+      "accumulate": "Accumulator",
+      "counter": "Counter"
+    },
+    "group": "Line 1"
+  },
+  "field1permission": {
+    "type": "dropdown",
+    "label": "Command permission",
+    "value": "broadcaster",
+    "options": {
+      "broadcaster": "Broadcaster",
+      "moderator": "Moderator",
+      "vip": "VIP",
+      "subscriber": "Subscriber",
+      "everyone": "Everyone"
+    },
+    "group": "Line 1"
+  },
+  "field2label": {
+    "type": "string",
+    "label": "Field label",
+    "value": "Field 2",
+    "group": "Line 2"
+  },
+  "field2icon": {
+    "type": "image-input",
+    "label": "Field icon",
+    "value": "",
+    "group": "Line 2"
+  },
+  "field2command": {
+    "type": "string",
+    "label": "Field command",
+    "value": "!accumulator",
+    "group": "Line 2"
+  },
+  "field2type": {
+    "type": "dropdown",
+    "label": "Field type",
+    "options": {
+      "accumulate": "Accumulator",
+      "counter": "Counter"
+    },
+    "group": "Line 2"
+  },
+  "field2permission": {
+    "type": "dropdown",
+    "label": "Command permission",
+    "value": "broadcaster",
+    "options": {
+      "broadcaster": "Broadcaster",
+      "moderator": "Moderator",
+      "vip": "VIP",
+      "subscriber": "Subscriber",
+      "everyone": "Everyone"
+    },
+    "group": "Line 2"
+  }
+}
