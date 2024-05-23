@@ -14,12 +14,22 @@
     "type": "number",
     "label": "Font Size (px)",
     "value": 14,
+    "min": 0,
+    "step": 1,
     "group": "Font"
   },
   "fontOutlineColor": {
     "type": "colorpicker",
     "label": "Outline Color",
     "value": "rgb(255, 255, 255)",
+    "group": "Font"
+  },
+  "fontOutlineThickness": {
+    "type": "number",
+    "label": "Outline Color",
+    "value": 1,
+    "min": 0,
+    "step": 1,
     "group": "Font"
   },
   "layout": {
@@ -36,18 +46,24 @@
     "type": "number",
     "label": "Spacing (px)",
     "value": 5,
+    "min": 0,
+    "step": 1,
     "group": "Formatting"
   },
   "iconSize": {
     "type": "number",
     "label": "Icon Size (px)",
     "value": 20,
+    "min": 0,
+    "step": 1,
     "group": "Formatting"
   },
   "decimalPlaces": {
     "type": "number",
     "label": "Decimal places",
     "value": 1,
+    "min": 0,
+    "step": 1,
     "group": "Formatting"
   },
   "resetCommand": {
@@ -108,45 +124,5 @@
       "everyone": "Everyone"
     },
     "group": "Line 1"
-  },
-  "field2label": {
-    "type": "string",
-    "label": "Field label",
-    "value": "Field 2",
-    "group": "Line 2"
-  },
-  "field2icon": {
-    "type": "image-input",
-    "label": "Field icon",
-    "value": "",
-    "group": "Line 2"
-  },
-  "field2command": {
-    "type": "string",
-    "label": "Field command",
-    "value": "!accumulator",
-    "group": "Line 2"
-  },
-  "field2type": {
-    "type": "dropdown",
-    "label": "Field type",
-    "options": {
-      "accumulate": "Accumulator",
-      "counter": "Counter"
-    },
-    "group": "Line 2"
-  },
-  "field2permission": {
-    "type": "dropdown",
-    "label": "Command permission",
-    "value": "broadcaster",
-    "options": {
-      "broadcaster": "Broadcaster",
-      "moderator": "Moderator",
-      "vip": "VIP",
-      "subscriber": "Subscriber",
-      "everyone": "Everyone"
-    },
-    "group": "Line 2"
   }
 }

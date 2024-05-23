@@ -3,7 +3,7 @@
     color: {{fontColor}};
     font-size: {{fontSize}}px;
     overflow: hidden;
-    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-width: {{fontOutlineThickness}}px;
     -webkit-text-stroke-color: {{fontOutlineColor}};
 }
 

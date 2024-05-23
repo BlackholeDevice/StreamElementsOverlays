@@ -89,12 +89,22 @@
             '    "type": "number",\n' +
             '    "label": "Font Size (px)",\n' +
             '    "value": 14,\n' +
+            '    "min": 0,\n' +
+            '    "step": 1,\n' +
             '    "group": "Font"\n' +
             '  },\n' +
             '  "fontOutlineColor": {\n' +
             '    "type": "colorpicker",\n' +
             '    "label": "Outline Color",\n' +
             '    "value": "rgb(255, 255, 255)",\n' +
+            '    "group": "Font"\n' +
+            '  },\n' +
+            '  "fontOutlineThickness": {\n' +
+            '    "type": "number",\n' +
+            '    "label": "Outline Color",\n' +
+            '    "value": 1,\n' +
+            '    "min": 0,\n' +
+            '    "step": 1,\n' +
             '    "group": "Font"\n' +
             '  },\n' +
             '  "layout": {\n' +
@@ -111,18 +121,24 @@
             '    "type": "number",\n' +
             '    "label": "Spacing (px)",\n' +
             '    "value": 5,\n' +
+            '    "min": 0,\n' +
+            '    "step": 1,\n' +
             '    "group": "Formatting"\n' +
             '  },\n' +
             '  "iconSize": {\n' +
             '    "type": "number",\n' +
             '    "label": "Icon Size (px)",\n' +
             '    "value": 20,\n' +
+            '    "min": 0,\n' +
+            '    "step": 1,\n' +
             '    "group": "Formatting"\n' +
             '  },\n' +
             '  "decimalPlaces": {\n' +
             '    "type": "number",\n' +
             '    "label": "Decimal places",\n' +
             '    "value": 1,\n' +
+            '    "min": 0,\n' +
+            '    "step": 1,\n' +
             '    "group": "Formatting"\n' +
             '  },\n' +
             '  "resetCommand": {\n' +
@@ -144,48 +160,48 @@
             '    },\n' +
             '    "group": "Reset"\n' +
             '  },\n' +
-            '{{fields}}\n' +
+            '{{fields}}' +
             '}';
         const itemTemplate = '"field{{id}}label": {\n' +
-            '"type": "string",\n' +
-            '"label": "Field label",\n' +
-            '"group": "Line {{id}}"\n' +
-            '},\n' +
-            '"field{{id}}icon": {\n' +
-            '"type": "image-input",\n' +
-            '"label": "Field icon",\n' +
-            '"value": "",\n' +
-            '"group": "Line {{id}}"\n' +
-            '},\n' +
-            '"field{{id}}command": {\n' +
-            '"type": "string",\n' +
-            '"label": "Field command",\n' +
-            '"value": "!command",\n' +
-            '"group": "Line {{id}}"\n' +
-            '},\n' +
-            '"field{{id}}type": {\n' +
-            '"type": "dropdown",\n' +
-            '"label": "Field type",\n' +
-            '"value": "counter",\n' +
-            '"options": {\n' +
-            '"accumulate": "Accumulator",\n' +
-            '"counter": "Counter"\n' +
-            '},\n' +
-            '"group": "Line {{id}}"\n' +
-            '},\n' +
-            '"field{{id}}permission": {\n' +
-            '"type": "dropdown",\n' +
-            '"label": "Command permission",\n' +
-            '"value": "broadcaster",\n' +
-            '"options": {\n' +
-            '"broadcaster": "Broadcaster",\n' +
-            '"moderator": "Moderator",\n' +
-            '"vip": "VIP",\n' +
-            '"subscriber": "Subscriber",\n' +
-            '"everyone": "Everyone"\n' +
-            '},\n' +
-            '"group": "Line {{id}}"\n' +
-            '}';
+            '    "type": "string",\n' +
+            '    "label": "Field label",\n' +
+            '    "value": "Field {{id}}",\n' +
+            '    "group": "Line {{id}}"\n' +
+            '  },\n' +
+            '  "field{{id}}icon": {\n' +
+            '    "type": "image-input",\n' +
+            '    "label": "Field icon",\n' +
+            '    "value": "",\n' +
+            '    "group": "Line {{id}}"\n' +
+            '  },\n' +
+            '  "field{{id}}command": {\n' +
+            '    "type": "string",\n' +
+            '    "label": "Field command",\n' +
+            '    "value": "!command",\n' +
+            '    "group": "Line {{id}}"\n' +
+            '  },\n' +
+            '  "field{{id}}type": {\n' +
+            '    "type": "dropdown",\n' +
+            '    "label": "Field type",\n' +
+            '    "options": {\n' +
+            '      "accumulate": "Accumulator",\n' +
+            '      "counter": "Counter"\n' +
+            '    },\n' +
+            '    "group": "Line {{id}}"\n' +
+            '  },\n' +
+            '  "field{{id}}permission": {\n' +
+            '    "type": "dropdown",\n' +
+            '    "label": "Command permission",\n' +
+            '    "value": "broadcaster",\n' +
+            '    "options": {\n' +
+            '      "broadcaster": "Broadcaster",\n' +
+            '      "moderator": "Moderator",\n' +
+            '      "vip": "VIP",\n' +
+            '      "subscriber": "Subscriber",\n' +
+            '      "everyone": "Everyone"\n' +
+            '    },\n' +
+            '    "group": "Line {{id}}"\n' +
+            '  }';
         function onClick() {
             const items = +document.getElementById("numItems").value;
             const lines = [];

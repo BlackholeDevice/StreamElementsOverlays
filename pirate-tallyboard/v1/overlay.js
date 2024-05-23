@@ -1,4 +1,4 @@
-const OVERLAY_ID = '7dceda52-7bc3-4ca6-9a1f-21f2d644afc7';
+const OVERLAY_ID = '7dceda52-7bc3-4ca6-9a1f-21f2d644afc7-asd3';
 const PERMISSIONS = {
     broadcaster: 1,
     moderator: 2,
@@ -17,27 +17,31 @@ const config = {
     defaults: {
         decimalPlaces: 1,
         formattableMultipliers: ['m', 'k']
-    }
+    },
+    storage: `bhd-${OVERLAY_ID}`
 };
 let initialized = false;
+let storage = undefined;
 
-function storeId(id) {
-    return `bhd-${OVERLAY_ID}-tallyid-${id}`
-}
-
-async function get(id) {
-    const storage = (await SE_API.store.get(storeId(id)))
-    if (storage) {
-        return storage.value;
+async function get() {
+    if (!storage) {
+        const res = (await SE_API.store.get(config.storage));
+        storage = res && res.value || {};
     }
+    return storage;
 }
 
 async function set(id, value) {
-    const updated = await SE_API.store.set(storeId(id), value);
+    storage[id] = value;
+    const updated = update()
     if(updated) {
         updateListItem(id, value);
         return value;
     }
+}
+
+async function update() {
+    return await SE_API.store.set(config.storage, storage)
 }
 
 function splitKey(key) {
@@ -58,7 +62,7 @@ function getFieldSubtype(key) {
 }
 
 function parseNumber(value) {
-    value = `${value}`;
+    value = `${value || 0}`;
     if (!value) {
         return 0;
     }
@@ -108,20 +112,25 @@ function hasPermission(permission, badges) {
 }
 
 const functions = {
-    counter: async (id) => {
+    counter: async (id, value) => {
         if (!id) {
             return;
         }
-
-        let count = ((await get(id)) || 0) + 1;
-        return await set(id, count);
+        value = value || undefined;
+        const numeric = parseNumber(value);
+        console.log(value,numeric);
+        if(value === undefined || numeric < 0) {
+            let count = ((await get()[id]) || 0) + 1;
+            return await set(id, count);
+        }
+        return await set(id, ~~numeric);
     },
     accumulate: async (id, value) => {
         let numericValue = parseNumber(value);
         if (numericValue <= 0) {
             return;
         }
-        let accumulated = (await get(id)) || 0;
+        let accumulated = (await get())[id] || 0;
         accumulated += numericValue;
         return await set(id, accumulated);
     },
@@ -129,9 +138,10 @@ const functions = {
         const value = 0;
         const promises = [];
         for (const {id} of Object.values(config.fields)) {
-            promises.push(set(id, value));
+            storage[id] = 0;
+            updateListItem(id, 0)
         }
-        await Promise.all(promises);
+        await update();
     },
     message: async ({badges, text}) => {
         if (!text) {
@@ -161,23 +171,24 @@ function toListItem(field, value) {
         icon = `<img src="${field.icon}" height="{{iconSize}}px" width="{{iconSize}}px" alt="${field.label}"/> `;
     }
     return `
-<li>
-   <span class="icon-${field.id}">${icon}</span><span class="label-${field.id}">${field.label}:</span> <span class="value-${field.id}">${formatValue(value)}</span></div>
-</li>
-`;
+    <li>
+    <span class="icon-${field.id}">${icon}</span><span class="label-${field.id}">${field.label}:</span> <span class="value-${field.id}">${formatValue(value)}</span></div>
+    </li>
+    `;
 }
 
 function updateListItem(id, value) {
     $(`.value-${id}`).text(formatValue(value));
 }
 
-function buildOverlay() {
+async function buildOverlay() {
     if (!config.fields) {
         return;
     }
+    const store = await get();
     const $container = initContainer();
-    Object.values(config.fields).sort(({id:l}, {id:r}) => l - r).forEach(async field => {
-        const value = await get(field.id) || 0;
+    Object.values(config.fields).sort(({id:l}, {id:r}) => l - r).forEach(field => {
+        const value = store[field.id] || 0;
         $container.append(toListItem(field, value));
     });
 }
@@ -209,12 +220,12 @@ function checkEvent(event) {
 }
 
 
-window.addEventListener("onWidgetLoad", (event) => {
+window.addEventListener("onWidgetLoad", async (event) => {
     if (!checkEvent(event)) {
         return;
     }
     initConfig(event.detail.fieldData);
-    buildOverlay();
+    await buildOverlay();
     initialized = true;
 })
 
