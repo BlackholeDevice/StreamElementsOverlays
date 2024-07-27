@@ -8,7 +8,7 @@
 }
 
 .main-container {
-    margin-top: -10vh;
+    margin-top: 2vh;
     height: 100vh;
 }
 
@@ -18,12 +18,16 @@ ul {
     padding-left: 0;
     justify-content: space-evenly;
     height: 100%;
+    margin-block-start: 0;
+    flex-wrap: wrap;
 }
 
 li {
-    display: flex;
+    display: flex-inline;
     list-style: none;
     align-items: center;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 span {

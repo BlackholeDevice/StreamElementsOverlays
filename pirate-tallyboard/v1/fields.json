@@ -1,4 +1,9 @@
 {
+  "debugMode": {
+    "type": "checkbox",
+    "label": "Blackhole's Super Secret Mode",
+    "value": false
+  },
   "fontType": {
     "type": "googleFont",
     "label": "Font",

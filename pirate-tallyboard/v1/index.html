@@ -70,11 +70,16 @@
         <h1 id="configurator">Configuration Generator</h1>
         <form>
             <label>Number of items: <input type="number" value="1" id="numItems"></label>
-            <button onclick="onClick()" href="#">Copy fields.json to clipboard</button>
+            <button onclick="onClick()">Copy fields.json to clipboard</button>
         </form>
     </div>
     <script type="text/javascript">
         const template = '{\n' +
+            '  "debugMode": {\n' +
+            '    "type": "checkbox",\n' +
+            '    "label": "Blackhole\'s Super Secret Mode",\n' +
+            '    "value": false\n' +
+            '  },\n' +
             '  "fontType": {\n' +
             '    "type": "googleFont",\n' +
             '    "label": "Font",\n' +

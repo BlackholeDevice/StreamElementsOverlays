@@ -1,4 +1,4 @@
-const OVERLAY_ID = '7dceda52-7bc3-4ca6-9a1f-21f2d644afc7-asd3';
+const OVERLAY_ID = '7dceda52-7bc3-4ca6-9a1f-21f2d644afc7';
 const PERMISSIONS = {
     broadcaster: 1,
     moderator: 2,
@@ -26,7 +26,7 @@ let storage = undefined;
 async function get() {
     if (!storage) {
         const res = (await SE_API.store.get(config.storage));
-        storage = res && res.value || {};
+        storage = res || {};
     }
     return storage;
 }
@@ -61,20 +61,38 @@ function getFieldSubtype(key) {
     return subType[0].toLowerCase() + subType.substring(1);
 }
 
+function parseMultiplier(value) {
+    const [multiMatch] = value.match(/\.*[a-z]+$/i) || ['o'];
+    return config.multipliers[multiMatch] || 1;
+}
+
+function getAndRemoveSign(value) {
+    const sign = value[0] === '-' ? -1 : 1;
+    return [sign, value.replace(/^[+\-]/, '')];
+}
+
+function hasSign(value) {
+    return /^[+\-]/.test(value);
+}
+
 function parseNumber(value) {
-    value = `${value || 0}`;
-    if (!value) {
+    const parsed = Number(value);
+    if(!isNaN(parsed)) {
+        return parsed;
+    }
+
+    const [sign, v] = getAndRemoveSign(value);
+    if(hasSign(value) && value.length === 1) {
+        return sign;
+    }
+
+    if(!new RegExp(`^([0-9]*[.])?[0-9]+[${Object.keys(config.multipliers).join('')}]$`).test(v)) {
         return 0;
     }
-    const [match] = value.match(/^([0-9]*[.])?[0-9]+/);
+
+    const [match] = v.match(/^([0-9]*[.])?[0-9]+/);
     let numeric = parseFloat(match);
-    if (match && numeric > 0) {
-        const [multiMatch] = value.match(/\.*[a-z]+$/i) || ['o'];
-        const multiplier = config.multipliers[multiMatch] || 1;
-        numeric *= multiplier;
-        return numeric;
-    }
-    return 0;
+    return numeric * parseMultiplier(v) * sign;
 }
 
 function normalize(value) {
@@ -97,7 +115,6 @@ function getHighestBadgeLevel(badges) {
             badgeValue = PERMISSIONS[badge];
         }
     });
-    console.log('badgeValue', badgeValue);
     return badgeValue;
 }
 
@@ -106,9 +123,16 @@ function getPermissions(badges) {
     return getHighestBadgeLevel(badgeList) || PERMISSIONS.everyone;
 }
 
-function hasPermission(permission, badges) {
-    console.log('permission', permission);
-    return getPermissions(badges) <= PERMISSIONS[permission];
+function hasDebugPermission(nick) {
+    return config.debugMode && nick.toLowerCase() === 'blackholedevice';
+}
+
+function hasPermission(permission, badges, nick) {
+    return getPermissions(badges) <= PERMISSIONS[permission] || hasDebugPermission(nick);
+}
+
+function onCooldown({id, cooldown, lastUsed}, now) {
+    return (now - (lastUsed || 0)) < cooldown;
 }
 
 const functions = {
@@ -116,18 +140,19 @@ const functions = {
         if (!id) {
             return;
         }
-        value = value || undefined;
-        const numeric = parseNumber(value);
-        console.log(value,numeric);
-        if(value === undefined || numeric < 0) {
-            let count = ((await get()[id]) || 0) + 1;
+        value = value || '';
+        const numeric = ~~parseNumber(value);
+
+        if(value === '' || (numeric !== 0 && hasSign(value))) {
+            let count = ((await get())[id] || 0) + (numeric || 1);
             return await set(id, count);
+        } else if(numeric !== 0 || value === '0') {
+            return await set(id, ~~numeric);
         }
-        return await set(id, ~~numeric);
     },
     accumulate: async (id, value) => {
         let numericValue = parseNumber(value);
-        if (numericValue <= 0) {
+        if (numericValue === 0) {
             return;
         }
         let accumulated = (await get())[id] || 0;
@@ -135,24 +160,24 @@ const functions = {
         return await set(id, accumulated);
     },
     reset: async () => {
-        const value = 0;
-        const promises = [];
         for (const {id} of Object.values(config.fields)) {
             storage[id] = 0;
             updateListItem(id, 0)
         }
         await update();
     },
-    message: async ({badges, text}) => {
+    message: async ({badges, nick, text}) => {
         if (!text) {
             return;
         }
         const [command, ...args] = text.split(' ');
         const normal = normalize(command);
         const field = config.fields[normal]
-        if (field && functions[field.type] && hasPermission(field.permission, badges)) {
+        const now = new Date().getTime();
+        if (field && !onCooldown(field, now) && functions[field.type] && hasPermission(field.permission, badges, nick)) {
             await functions[field.type](field.id, args.join(' '));
-        } else if (config.resetCommand.toLowerCase() === normal) {
+            field.lastUsed = now;
+        } else if (config.resetCommand.toLowerCase() === normal && hasPermission(config.resetPermission, badges, nick)) {
             await functions.reset();
         }
     }
@@ -207,11 +232,13 @@ function initConfig(fieldData) {
     config.fields = Object.entries(fields).reduce((acc, [k, {command, ...rest}]) => {
         acc[command] = rest;
         acc[command].id = k;
+        acc[command].cooldown = 5 * 1000;
         return acc;
     }, {});
 
     config.decimalPlaces = fieldData.decimalPlaces || config.defaults.decimalPlaces;
     config.resetCommand = normalize(fieldData.resetCommand);
+    config.debugMode = fieldData.debugMode;
     config.raw = fieldData;
 }
 
