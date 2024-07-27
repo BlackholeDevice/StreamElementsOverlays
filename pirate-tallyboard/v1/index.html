@@ -208,13 +208,15 @@
             '    },\n' +
             '    "group": "Line {{id}}"\n' +
             '  }';
-        function onClick() {
+        function onClick(e) {
             const items = +document.getElementById("numItems").value;
             const lines = [];
             for(let i = 1; i <= items; i++) {
                 lines.push(itemTemplate.replaceAll("{{id}}", `${i}`));
             }
             copy(template.replace("{{fields}}", lines.join(',')));
+            e.preventDefault();
+            e.stopPropagation();
         }
 
         async function copy(text) {
