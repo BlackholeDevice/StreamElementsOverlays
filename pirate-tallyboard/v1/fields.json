@@ -90,6 +90,12 @@
     },
     "group": "Reset"
   },
+  "field1enabled": {
+    "type": "checkbox",
+    "label": "Enabled",
+    "value": true,
+    "group": "Line 1"
+  },
   "field1label": {
     "type": "string",
     "label": "Field label",

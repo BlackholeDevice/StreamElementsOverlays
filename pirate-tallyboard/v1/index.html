@@ -168,7 +168,13 @@
             '  },\n' +
             '{{fields}}' +
             '}';
-        const itemTemplate = '"field{{id}}label": {\n' +
+        const itemTemplate = '"field1enabled": {\n' +
+            '  "type": "checkbox",\n' +
+            '  "label": "Enabled",\n' +
+            '  "value": true,\n' +
+            '  "group": "Line 1"\n' +
+            '},\n' +
+            '"field{{id}}label": {\n' +
             '    "type": "string",\n' +
             '    "label": "Field label",\n' +
             '    "value": "Field {{id}}",\n' +

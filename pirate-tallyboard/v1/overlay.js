@@ -177,7 +177,7 @@ const functions = {
         if (field && !onCooldown(field, now) && functions[field.type] && hasPermission(field.permission, badges, nick)) {
             await functions[field.type](field.id, args.join(' '));
             field.lastUsed = now;
-        } else if (config.resetCommand.toLowerCase() === normal && hasPermission(config.resetPermission, badges, nick)) {
+        } else if (config.resetCommand.toLowerCase() === normal && hasPermission(config.resetCommandPermission, badges, nick)) {
             await functions.reset();
         }
     }
@@ -229,15 +229,18 @@ function initConfig(fieldData) {
             return acc;
         }, {});
 
-    config.fields = Object.entries(fields).reduce((acc, [k, {command, ...rest}]) => {
-        acc[command] = rest;
-        acc[command].id = k;
-        acc[command].cooldown = 5 * 1000;
-        return acc;
-    }, {});
+    config.fields = Object.entries(fields)
+        .filter(([_,{enabled}]) => enabled)
+        .reduce((acc, [k, {command, ...rest}]) => {
+            acc[command] = rest;
+            acc[command].id = k;
+            acc[command].cooldown = 5 * 1000;
+            return acc;
+        }, {});
 
     config.decimalPlaces = fieldData.decimalPlaces || config.defaults.decimalPlaces;
     config.resetCommand = normalize(fieldData.resetCommand);
+    config.resetCommandPermission = fieldData.resetCommandPermission;
     config.debugMode = fieldData.debugMode;
     config.raw = fieldData;
 }
