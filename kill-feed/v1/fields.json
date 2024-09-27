@@ -1,0 +1,95 @@
+{
+  "socketHost": {
+    "type": "text",
+    "label": "Web socket host",
+    "value": "127.0.0.1",
+    "group": "Connection"
+  },
+  "socketPort": {
+    "type": "number",
+    "label": "Web socket port",
+    "value": 8080,
+    "step": 1,
+    "min": 1,
+    "group": "Connection"
+  },
+  "fadeTime": {
+    "type": "number",
+    "label": "Fade Time",
+    "step": 1,
+    "min": 0,
+    "value": 5,
+    "group": "Styles"
+  },
+  "font": {
+    "type": "googleFont",
+    "label": "Font",
+    "group": "Styles"
+  },
+  "ballisticIcon": {
+    "type": "image-input",
+    "label": "Ballistic kill",
+    "group": "Ballistic kills"
+  },
+  "ballisticText": {
+    "type": "text",
+    "label": "Ballistic death message",
+    "value": "",
+    "group": "Ballistic kills"
+  },
+  "laserIcon": {
+    "type": "image-input",
+    "label": "Laser kill",
+    "group": "Laser kills"
+  },
+  "laserText": {
+    "type": "text",
+    "label": "Laser death message",
+    "value": "",
+    "group": "Laser kills"
+  },
+  "fpsIcon": {
+    "type": "image-input",
+    "label": "FPS kill",
+    "group": "FPS kills"
+  },
+  "fpsText": {
+    "type": "text",
+    "label": "FPS death message",
+    "value": "",
+    "group": "FPS kills"
+  },
+  "shipIcon": {
+    "type": "image-input",
+    "label": "Vehicle destruction",
+    "group": "Ship destruction kills"
+  },
+  "shipText": {
+    "type": "text",
+    "label": "Ballistic death message",
+    "value": "",
+    "group": "Ship destruction kills"
+  },
+  "crashIcon": {
+    "type": "image-input",
+    "label": "Crash",
+    "group": "Crash deaths"
+  },
+  "crashText": {
+    "type": "text",
+    "label": "Ballistic death message",
+    "value": "",
+    "group": "Crash deaths"
+  },
+  "backspaceIcon": {
+    "type": "image-input",
+    "label": "Suicide (backspace)",
+    "group": "Suicide deaths"
+  },
+  "backspaceText": {
+    "type": "text",
+    "label": "Ballistic death message",
+    "value": "",
+    "group": "Suicide deaths"
+  }
+}
