@@ -1,4 +1,14 @@
 {
+  "socketMode": {
+    "type": "dropdown",
+    "value": "StreamerbotClient",
+    "label": "Socket Mode",
+    "options": {
+      "StreamerbotClient": "Streamer.bot Client",
+      "DebugClient": "Debug"
+    },
+    "group": "Connection"
+  },
   "socketHost": {
     "type": "text",
     "label": "Web socket host",
@@ -13,6 +23,12 @@
     "min": 1,
     "group": "Connection"
   },
+  "socketEndpoint": {
+    "type": "text",
+    "label": "Web socket endpoint",
+    "value": "/",
+    "group": "Connection"
+  },
   "fadeTime": {
     "type": "number",
     "label": "Fade Time",
@@ -25,6 +41,45 @@
     "type": "googleFont",
     "label": "Font",
     "group": "Styles"
+  },
+  "fontColor": {
+    "type": "colorpicker",
+    "label": "Font color",
+    "value": "rgb(255, 255, 255)",
+    "group": "Styles"
+  },
+  "fontSize": {
+    "type": "number",
+    "label": "Font Size (px)",
+    "value": 14,
+    "min": 0,
+    "step": 1,
+    "group": "Styles"
+  },
+  "fontOutlineColor": {
+    "type": "colorpicker",
+    "label": "Outline Color",
+    "value": "rgb(255, 255, 255)",
+    "group": "Styles"
+  },
+  "fontOutlineThickness": {
+    "type": "number",
+    "label": "Outline thickness",
+    "value": 1,
+    "min": 0,
+    "step": 1,
+    "group": "Styles"
+  },
+  "defaultIcon": {
+    "type": "image-input",
+    "label": "Default death icon",
+    "group": "Defaults"
+  },
+  "defaultText": {
+    "type": "text",
+    "label": "Default death text",
+    "value": "{attacker} {icon} {victim}",
+    "group": "Defaults"
   },
   "ballisticIcon": {
     "type": "image-input",
@@ -61,12 +116,12 @@
   },
   "shipIcon": {
     "type": "image-input",
-    "label": "Vehicle destruction",
+    "label": "Vehicle destruction icon",
     "group": "Ship destruction kills"
   },
   "shipText": {
     "type": "text",
-    "label": "Ballistic death message",
+    "label": "Vehicle destruction death message",
     "value": "",
     "group": "Ship destruction kills"
   },
@@ -77,18 +132,18 @@
   },
   "crashText": {
     "type": "text",
-    "label": "Ballistic death message",
+    "label": "Crash death message",
     "value": "",
     "group": "Crash deaths"
   },
   "backspaceIcon": {
     "type": "image-input",
-    "label": "Suicide (backspace)",
+    "label": "Suicide (backspace) icon",
     "group": "Suicide deaths"
   },
   "backspaceText": {
     "type": "text",
-    "label": "Ballistic death message",
+    "label": "Suicide (backspace) message",
     "value": "",
     "group": "Suicide deaths"
   }

@@ -1,21 +1,23 @@
 * {
     font-family: '{{font}}', sans-serif;
-    font-size: 14px;
+    color: {{fontColor}};
+    font-size: {{fontSize}}px;
     overflow: hidden;
+    -webkit-text-stroke-width: {{fontOutlineThickness}}px;
+    -webkit-text-stroke-color: {{fontOutlineColor}};
 }
 .fade {
-    animation: fade 1s;
-    animation-delay:{{fadeTime}}s;
-    animation-fill-mode: forwards;
+    animation: 1s fade forwards;
+    animation-delay: {{fadeTime}}s;
 }
 
-table {
-    width: 100%;
+#main-container {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 5px;
 }
 
-tr {
-    animation: slide-in 100ms;
-    animation-fill-mode: forwards
+.row {
 }
 
 @keyframes fade {
@@ -29,9 +31,9 @@ tr {
 
 @keyframes slide-in {
     0% {
-        width: 0px;
+        left: 200%;
     }
     100% {
-        width: 100%;
+        left: 0;
     }
 }
