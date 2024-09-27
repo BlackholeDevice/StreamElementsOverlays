@@ -1,0 +1,37 @@
+* {
+    font-family: '{{font}}', sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+}
+.fade {
+    animation: fade 1s;
+    animation-delay:{{fadeTime}}s;
+    animation-fill-mode: forwards;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    animation: slide-in 100ms;
+    animation-fill-mode: forwards
+}
+
+@keyframes fade {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes slide-in {
+    0% {
+        width: 0px;
+    }
+    100% {
+        width: 100%;
+    }
+}
