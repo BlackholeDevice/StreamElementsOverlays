@@ -8,16 +8,16 @@
 }
 .fade {
     animation: 1s fade forwards;
-    animation-delay: {{fadeTime}}s;
 }
 
 #main-container {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     margin: 5px;
 }
 
-.row {
+.slide {
+    animation: 250ms slide-in forwards;
 }
 
 @keyframes fade {
@@ -31,9 +31,9 @@
 
 @keyframes slide-in {
     0% {
-        left: 200%;
+        transform: translateX(100%);
     }
     100% {
-        left: 0;
+        transform: translateX(0);
     }
 }

@@ -29,10 +29,15 @@ function firstMatch(mapping, query) {
 
 function getName(person) {
     const mapping = {
-        'Outlaw': /Criminal/i,
+        'Outlaw': /Criminal|Outlaw/i,
         'Nine Tails': /NineTails/i,
-        'Security': /Guard/i,
-        'Civilian': /civilian/i
+        'Hurston Security': /Hurston/i,
+        'Civilian': /civilian/i,
+        'Crusader Guard': /crusader/i,
+        'MicroTech Security': /Microtech/i,
+        'UEE Navy': /UEE/,
+        'Duster': /Dusters/i,
+        'Distro Center Worker': /SakuraSun/,
     };
 
     return firstMatch(mapping, person) || person;
@@ -43,7 +48,7 @@ function getKillSubtype({using, damageType}) {
         'ballistic': /ballistic/i,
         'laser': /laser/i,
     }
-    const hasSubtype = ['VehicleDestruction', 'Bullet'];
+    const hasSubtype = ['Bullet'];
 
     if(!hasSubtype.includes(damageType)) {
         return;
@@ -80,7 +85,7 @@ function parseKillMessage(data) {
 }
 
 function generateElement(data) {
-    return $(`<span class="row fade">${parseKillMessage(data)}</span>`);
+    return $(`<span class="slide">${parseKillMessage(data)}</span>`);
 }
 
 const eventHandlers = {
@@ -88,6 +93,7 @@ const eventHandlers = {
         const $element = generateElement(data);
         $('#main-container').prepend($element);
         const fadeTime = config.fadeTime * 1000;
+        setTimeout(() => $element.removeClass('slide').addClass('fade'), fadeTime);
         setTimeout(() => $element.remove(), fadeTime + 1000);
     }
 };
@@ -100,7 +106,7 @@ window.addEventListener("onWidgetLoad", async (event) => {
     const client = new socketModes[config.socketMode]({
         host: config.socketHost,
         port: config.socketPort,
-        endpoint: config.endpoint,
+        endpoint: config.socketEndpoint,
         subscribe: 'General.Custom'
     });
     client.on('General.Custom',  ({data: {event, ...data}}) => {
