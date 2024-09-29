@@ -63,7 +63,8 @@ function getKillType(data) {
         'Bullet': 'fps',
         'VehicleDestruction': 'ship',
         'Crash': 'crash',
-        'Suicide': 'backspace'
+        'Suicide': 'backspace',
+        'Explosion': 'explosion'
     }
 
     return getKillSubtype(data) || mapping[damageType] || damageType

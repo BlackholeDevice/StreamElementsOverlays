@@ -162,6 +162,17 @@
     "value": "",
     "group": "Crash deaths"
   },
+  "explosionIcon": {
+    "type": "image-input",
+    "label": "Explosion",
+    "group": "Explosion deaths"
+  },
+  "explosionText": {
+    "type": "text",
+    "label": "Explosion death message",
+    "value": "",
+    "group": "Explosion deaths"
+  },
   "backspaceIcon": {
     "type": "image-input",
     "label": "Suicide (backspace) icon",
