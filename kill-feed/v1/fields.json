@@ -70,6 +70,32 @@
     "step": 1,
     "group": "Styles"
   },
+  "alignment": {
+    "type": "dropdown",
+    "label": "Alignment",
+    "value": "flex-start",
+    "options": {
+      "flex-start": "Left",
+      "flex-end": "Right"
+    },
+    "group": "Styles"
+  },
+  "lineSpacing": {
+    "type": "number",
+    "label": "Line Spacing",
+    "value": 0,
+    "min": 0,
+    "step": 1,
+    "group": "Styles"
+  },
+  "letterSpacing": {
+    "type": "number",
+    "label": "Letter Spacing",
+    "value": 0,
+    "min": 0,
+    "step": 1,
+    "group": "Styles"
+  },
   "defaultIcon": {
     "type": "image-input",
     "label": "Default death icon",

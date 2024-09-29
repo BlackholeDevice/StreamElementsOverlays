@@ -6,6 +6,7 @@
     -webkit-text-stroke-width: {{fontOutlineThickness}}px;
     -webkit-text-stroke-color: {{fontOutlineColor}};
 }
+
 .fade {
     animation: 1s fade forwards;
 }
@@ -14,6 +15,12 @@
     display: flex;
     flex-direction: column;
     margin: 5px;
+    align-items: {{alignment}};
+}
+
+span {
+    margin-bottom: {{lineSpacing}}px;
+    letter-spacing: {{letterSpacing}}px;
 }
 
 .slide {
