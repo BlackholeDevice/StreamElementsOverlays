@@ -15,12 +15,12 @@
     display: flex;
     flex-direction: column;
     margin: 5px;
-    align-items: {{alignment}};
+    align-items: flex-end;
 }
 
 span {
-    margin-bottom: {{lineSpacing}}px;
     letter-spacing: {{letterSpacing}}px;
+    margin-bottom: {{lineSpacing}}px;
 }
 
 .slide {

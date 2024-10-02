@@ -29,13 +29,19 @@
     "value": "/",
     "group": "Connection"
   },
+  "showNpcs": {
+    "type": "checkbox",
+    "label": "Show NPCs",
+    "value": true,
+    "group": "Options"
+  },
   "fadeTime": {
     "type": "number",
     "label": "Fade Time",
     "step": 1,
     "min": 0,
     "value": 5,
-    "group": "Styles"
+    "group": "Options"
   },
   "font": {
     "type": "googleFont",
@@ -95,17 +101,6 @@
     "min": 0,
     "step": 1,
     "group": "Styles"
-  },
-  "defaultIcon": {
-    "type": "image-input",
-    "label": "Default death icon",
-    "group": "Defaults"
-  },
-  "defaultText": {
-    "type": "text",
-    "label": "Default death text",
-    "value": "{attacker} {icon} {victim}",
-    "group": "Defaults"
   },
   "ballisticIcon": {
     "type": "image-input",
@@ -183,5 +178,16 @@
     "label": "Suicide (backspace) message",
     "value": "",
     "group": "Suicide deaths"
+  },
+  "otherIcon": {
+    "type": "image-input",
+    "label": "Other death icon",
+    "group": "Other kills"
+  },
+  "otherText": {
+    "type": "text",
+    "label": "Other death text",
+    "value": "{attacker} {icon} {victim}",
+    "group": "Other kills"
   }
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kill Log</title>
+    <link rel="stylesheet" href="../../instructions.css">
+</head>
+<body>
+    <div>
+        <h1>How to</h1>
+        <p>This guide will provide a rough how-to on how to use the Kill Log overlay</p>
+        <h3>Prerequisites</h3>
+        <ul>
+            <li><a href="https://streamer.bot/">Streamer.bot</a> (<a href="https://streamer.bot/api/releases/streamer.bot/latest/download">direct download</a>)</li>
+        </ul>
+        <h3>Installation</h3>
+        <p>Create a new Overlay in StreamElements, add a new Static / Custom -> Custom widget. Copy paste the following files into their respective tabs</p>
+            <ol>
+                <li><a href="https://raw.githubusercontent.com/BlackholeDevice/StreamElementsOverlays/main/kill-log/v1/overlay.html">html</a></li>
+                <li><a href="https://raw.githubusercontent.com/BlackholeDevice/StreamElementsOverlays/main/kill-log/v1/overlay.css">css</a></li>
+                <li><a href="https://raw.githubusercontent.com/BlackholeDevice/StreamElementsOverlays/main/kill-log/v1/overlay.js">js</a></li>
+                <li><a href="https://raw.githubusercontent.com/BlackholeDevice/StreamElementsOverlays/main/kill-log/v1/fields.json">fields</a></li>
+                <li>Data: Can be cleared</li>
+            </ol>
+        <h4>Streamer.bot Setup</h4>
+        <p>[placeholder]</p>
+        <h3>Configuration</h3>
+        <h4>Connection</h4>
+        <ol>
+            <li>
+                Socket Mode: How connection should be made for displaying the kill feed. Default: Streamer.bot Client
+            <ul>
+                <li>Streamer.bot Client: Connect to local Streamer.bot instance using the provided connection info</li>
+                <li>Debug: Debug the overlay using dummy data. No socket connection will be made. Data will be generated at a rate of 55% of fade time to ensure multiple events can be tested at once.</li>
+            </ul>
+            </li>
+            <li>Web socket host: Hostname of the websocket server. Default: 127.0.0.1</li>
+            <li>Web socket port: Port of the websocket server. This is specified within Streamer.bot. Default: 8080</li>
+            <li>Web socket endpoint: Websocket endpoint. This is specified within Streamer.bot. Default /</li>
+        </ol>
+        <h4>Options</h4>
+        <ol>
+            <li>Show NPCs: Whether NPCs should be shown by the overlay. Default: checked</li>
+            <li>Fade Time: How long each event should be shown (in seconds)</li>
+        </ol>
+        <h4>Styles</h4>
+        <ol>
+            <li>Font: Font to use</li>
+            <li>Font color: Font color</li>
+            <li>Font size: Font size</li>
+            <li>Outline color: Outline color, if present</li>
+            <li>Outline thickness: Outline thickness, if present</li>
+            <li>Alignment: Determines whether events will be left aligned or right align</li>
+            <li>Line spacing: Spacing between events</li>
+            <li>Letter spacing: Text kerning</li>
+        </ol>
+        <h4>Kills</h4>
+        <ol>
+            <li>Kill icon: Image to be shown. Icon MUST be present within death message otherwise it will not be shown</li>
+            <li>Death message: Message to be shown for each event. Placeholders can be used in place of the following:
+                <ul>
+                    <li>{attacker}: The name of the player that got the killing blow</li>
+                    <li>{victim}: The name of the player killed</li>
+                    <li>{using}: The weapon used in the killing blow. Note: This is not a user-friendly name.</li>
+                    <li>{damageType}: The type of damage in the killing blow. Note: This is not a user-friendly name.</li>
+                    <li>{zone}: The container the victim was in at time of death. Note: This is not a user-friendly name.</li>
+                    <li>{icon}: The icon specified in the kill icon option</li>
+                </ul>
+            </li>
+        </ol>
+        <h5>Notes</h5>
+        <ul>
+            <li>Ballistic kills and Laser kills apply to kills via Ballistic and energy FPS weapons, not ship weapons</li>
+            <li>Icons and messages specified under "Other Kills" will be used as defaults when no other category applies.</li>
+        </ul>
+    </div>
+</body>
+</html>

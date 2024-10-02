@@ -1,10 +1,15 @@
+/* globals StreamerbotClient, $ */
 let config = {};
+const dupeFix = {}
 const socketModes = {
     StreamerbotClient,
     DebugClient: class {
         on(channel, callback) {
-            const damageTypes = [ 'Bullet', 'VehicleDestruction', 'Suicide', 'Crash', 'unknown'];
-            const names = ['Kendall','Saul','Selena','Rylee','Ashtyn','Mohammed','Bianca','Lee','Hailie','Hanna','Ishaan','Avery','Trenton','Coby','Katelyn','Hassan','Audrey','Braydon','Juliana','Emanuel','Porter','Corbin','Gillian','Hayden'];
+            if(this.interval) {
+                clearInterval(this.interval);
+            }
+            const damageTypes = ['Bullet', 'VehicleDestruction', 'Suicide', 'Crash', 'unknown', 'Explosion'];
+            const names = ['Kendall', 'Saul', 'Selena', 'Rylee', 'Ashtyn', 'Mohammed', 'Bianca', 'Lee', 'Hailie', 'Hanna', 'Ishaan', 'Avery', 'Trenton', 'Coby', 'Katelyn', 'Hassan', 'Audrey', 'Braydon', 'Juliana', 'Emanuel', 'Porter', 'Corbin', 'Gillian', 'Hayden'];
             const using = ['Laser', 'Ballistic', 'Missile']
             const random = array => array[Math.floor(Math.random() * array.length)];
             this.interval = setInterval(() => callback({data: {
@@ -13,14 +18,14 @@ const socketModes = {
                     "attacker": random(names),
                     "damageType": random(damageTypes),
                     "using": random(using)
-                }}), (config.fadeTime * 0.55) * 1000);
+                }
+            }), (config.fadeTime * 0.55) * 1000);
         }
     }
 };
 
-
 function checkEvent(event) {
-    return !!event.detail;
+    return !!event.detail && !!event.detail.fieldData;
 }
 
 function firstMatch(mapping, query) {
@@ -50,7 +55,7 @@ function getKillSubtype({using, damageType}) {
     }
     const hasSubtype = ['Bullet'];
 
-    if(!hasSubtype.includes(damageType)) {
+    if (!hasSubtype.includes(damageType)) {
         return;
     }
 
@@ -71,31 +76,54 @@ function getKillType(data) {
 }
 
 function getIcon(icon) {
-    if(!icon) {
+    if (!icon) {
         return '';
     }
 
-    return `<img src="${icon}" height="${config.fontSize}" width="${config.fontSize}">`;
+    return `<img src="${icon}" height="${config.fontSize}">`;
 }
 
 function parseKillMessage(data) {
     const killType = getKillType(data);
-    const text = config[`${killType}Text`] || config.defaultText;
-    data.icon = getIcon(config[`${killType}Icon`] || config.defaultIcon);
-    return Object.entries(data).reduce((res, [k,v]) => res.replace(`{${k}}`, v), text);
+    const text = config[`${killType}Text`] || config.otherText;
+    data.icon = getIcon(config[`${killType}Icon`] || config.otherIcon);
+    return Object.entries(data).reduce((res, [k, v]) => res.replace(`{${k}}`, getName(v)), text);
 }
 
 function generateElement(data) {
     return $(`<span class="slide">${parseKillMessage(data)}</span>`);
 }
 
+function isDupe(victim, now) {
+    return dupeFix[victim] && (now - dupeFix[victim]) <= 2000;
+}
+
+function isNPC({attacker, victim}) {
+    const regex = /^(NPC|PU)_/i;
+    return config.showNpcs && (regex.test(attacker) || regex.test(victim));
+}
+
+function isNpcOrDupe(data) {
+    const {victim} = data;
+    const now = Date.now();
+    const dupeOrNpc = isNPC(data) || isDupe(victim, now);
+    if(!dupeOrNpc) {
+        dupeFix[victim] = now;
+    }
+    return dupeOrNpc;
+}
+
 const eventHandlers = {
     'kill-log': (data) => {
+        if(isNpcOrDupe(data)) {
+            return;
+        }
         const $element = generateElement(data);
         $('#main-container').prepend($element);
-        const fadeTime = config.fadeTime * 1000;
+        const ms = 1000;
+        const fadeTime = config.fadeTime * ms;
         setTimeout(() => $element.removeClass('slide').addClass('fade'), fadeTime);
-        setTimeout(() => $element.remove(), fadeTime + 1000);
+        setTimeout(() => $element.remove(), fadeTime + ms);
     }
 };
 
@@ -110,8 +138,8 @@ window.addEventListener("onWidgetLoad", async (event) => {
         endpoint: config.socketEndpoint,
         subscribe: 'General.Custom'
     });
-    client.on('General.Custom',  ({data: {event, ...data}}) => {
-        if(!event || !eventHandlers[event]) {
+    client.on('General.Custom', ({data: {event, ...data}}) => {
+        if (!event || !eventHandlers[event]) {
             return;
         }
 

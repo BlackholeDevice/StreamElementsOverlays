@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "patternProperties": {
+    "^.*$": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "colorpicker",
+            "audio-input",
+            "sound-input",
+            "video-input",
+            "image-input",
+            "googleFont",
+            "dropdown",
+            "slider",
+            "button",
+            "checkbox",
+            "date",
+            "datetime-local",
+            "email",
+            "file",
+            "hidden",
+            "month",
+            "number",
+            "password",
+            "radio",
+            "range",
+            "reset",
+            "search",
+            "submit",
+            "tel",
+            "text",
+            "time",
+            "url",
+            "week"
+          ],
+          "description": "Type of input"
+        },
+        "label": {
+          "type": "string",
+          "description": "Field label"
+        },
+        "value": {
+          "type": ["string", "number", "boolean"],
+          "description": "Default field value"
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Key value pairs, list of options. Only relevant with type = dropdown",
+          "examples": [{
+            "field": "value"
+          }]
+        },
+        "step": {
+          "type": "number",
+          "description": "Amount to increment / decrement numeric fields.",
+          "default": 0.1
+        },
+        "min": {
+          "type": "number",
+          "description": "Minimum allowable value. Only relevant for numeric fields",
+          "default": null
+        },
+        "max": {
+          "type": "number",
+          "description": "Maximum allowable value. Only relevant for numeric fields",
+          "default": null
+        },
+        "group": {
+          "type": "string",
+          "description": "Category this field belongs to",
+          "default": null
+        }
+      },
+      "required": ["type", "label"]
+    }
+  }
+}
