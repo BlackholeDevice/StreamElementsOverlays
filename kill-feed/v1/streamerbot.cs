@@ -7,11 +7,7 @@ public class CPHInline
 {
     public bool Execute()
     {
-        if (!CPH.TryGetArg("line", out string line))
-        {
-            CPH.LogDebug("No line variable");
-            return false;
-        }
+        var line = (string) args["line"];
 
         if (!IsDeathEvent(line))
         {
@@ -19,9 +15,18 @@ public class CPHInline
         }
 
         var dict = ParseLine(line);
+        SetArgs(dict);
         BroadcastDeathEvent(dict);
         CPH.LogInfo($"{dict["attacker"]} killed {dict["victim"]}");
         return true;
+    }
+
+    private void SetArgs(Dictionary<string, string> dict)
+    {
+        foreach (var kvp in dict)
+        {
+            CPH.SetArgument(kvp.Key, kvp.Value);
+        }
     }
 
     private void BroadcastDeathEvent(Dictionary<string, string> data)
@@ -29,12 +34,12 @@ public class CPHInline
         CPH.WebsocketBroadcastJson(JsonConvert.SerializeObject(data));
     }
 
-    private bool IsDeathEvent(string line)
+    private static bool IsDeathEvent(string line)
     {
-        return line.Contains("<Actor Death>");
+        return !string.IsNullOrEmpty(line) && line.Contains("<Actor Death>");
     }
 
-    private Dictionary<string, string> ParseLine(string line)
+    private static Dictionary<string, string> ParseLine(string line)
     {
         return new Dictionary<string, string>
         {
@@ -47,7 +52,7 @@ public class CPHInline
         };
     }
 
-    private string GetMatch(string text, string regex)
+    private static string GetMatch(string text, string regex)
     {
         var match = Regex.Match(text, regex);
         return match.Success ? match.Groups[1].Value : string.Empty;
