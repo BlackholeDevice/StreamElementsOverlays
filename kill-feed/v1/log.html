@@ -15,15 +15,13 @@
 
         th {
             cursor: pointer;
+            text-align: left;
         }
     </style>
 </head>
 <body>
     <table id="main-container">
         <tr id="header">
-            <th onclick="sortTable(0)">Time</th>
-            <th onclick="sortTable(1)">Victim</th>
-            <th onclick="sortTable(2)">Attacker</th>
         </tr>
     </table>
     <script type="text/javascript" src="https://unpkg.com/@streamerbot/client/dist/streamerbot-client.js"></script>
@@ -72,6 +70,22 @@
             const params = new URLSearchParams(window.location.search);
             const dupeFix = {};
             const filter = params.getAll('filter').flatMap(v => v.split(',')).map(s => (s || '').toLowerCase());
+            const fields = params.has('fields')
+                ? params.getAll('fields')
+                    .flatMap(v => v.split(','))
+                    .map(s => (s || '').toLowerCase())
+                : ['time', 'victim', 'attacker'];
+
+            const labels = {
+                time: 'Time',
+                victim: 'Victim',
+                attacker: 'Attacker'
+            };
+
+            function addTableHeader() {
+                fields.map(((field,i) => $(`<th onclick="sortTable(${i})">${labels[field]}</th>`))).forEach($el => $('#header').append($el));
+            }
+            addTableHeader();
 
             function getDate() {
                 const now = new Date();
@@ -86,20 +100,23 @@
                 return dupeFix[victim] && (now - dupeFix[victim]) <= 2000;
             }
 
-            window.addEvent = function ({attacker, victim}) {
+            window.addEvent = function (data) {
                 const now = Date.now();
+                data.time = getDate();
 
-                if (!(!filter.length || filter.includes(attacker.toLowerCase()) || filter.includes(victim.toLowerCase()))) {
+                if (!(!filter.length || filter.includes(data.attacker.toLowerCase()) || filter.includes(data.victim.toLowerCase()))) {
                     return
                 }
 
-                if (isDupe(victim, now)) {
+                if (isDupe(data.victim, now)) {
                     return;
                 }
 
-                dupeFix[victim] = now;
+                dupeFix[data.victim] = now;
 
-                $(`<tr><td>${getDate()}</td><td>${attacker}</td><td>${victim}</td></tr>`).insertAfter($('#header'));
+                const $row = $(`<tr></tr>`);
+                fields.map(field => $(`<td>${data[field]}</td>`)).forEach($column => $column.appendTo($row));
+                $row.insertAfter($('#header'));
             }
             const subscribe = params.get('subscribe') || 'General.Custom';
             const client = new StreamerbotClient({

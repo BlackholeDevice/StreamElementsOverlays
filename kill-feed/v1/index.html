@@ -171,6 +171,7 @@
             <li>port: Websocket port. Default: 8080, example: port=8081</li>
             <li>endpoint: Websocket endpoint. Default: /, example: endpoint=/different</li>
             <li>filter: Limit to only listed users. This option can either be comma separated or repeated to include multiple users. Default: filter=user1,user2 OR filter=user1&filter=user2</li>
+            <li>fields: Change the order of the columns. This option can be either comma separated or repeated. Available columns (case sensitive): time, victim, attacker. Default: time,victim,attacker.</li>
         </ul>
         <p>Options in the url must be separated by ampersand (&amp;). Options must all be preceded by a '?'. https://blackholedevice.github.io/StreamElementsOverlays/kill-feed/v1/log.html<span class="emphasis">?</span>host=localhost<span class="emphasis">&amp;</span>port=8081<span class="emphasis">&amp;</span>endpoint=/different<span class="emphasis">&amp;</span>filter=user1,user2<span class="emphasis">&amp;</span>filter=user3
         </p>
