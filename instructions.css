@@ -6,6 +6,13 @@ body {
 a:link {
     color: #55e;
 }
+
 a:visited {
     color: #EE1AEE;
+}
+
+.emphasis {
+    color: darkturquoise;
+    font-weight: bolder;
+    text-decoration: underline;
 }

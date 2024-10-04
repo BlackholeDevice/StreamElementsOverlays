@@ -158,6 +158,22 @@
             <li>Ballistic kills and Laser kills apply to kills via Ballistic and energy FPS weapons, not ship weapons</li>
             <li>Icons and messages specified under "Other Kills" will be used as defaults when no other category applies.</li>
         </ul>
+        <h4>Streamer View</h4>
+        <p>
+            For convenience, you can use <a href="log.html">log.html</a> as a kill dashboard.
+            This will show the same thing as the overlay without the fade time. This way, you can keep a list of deaths always visible.
+            This is intended to be a behind-the-scenes view not shown on stream
+        </p>
+        <h5>Configuration</h5>
+        <p>This log view uses the default settings as shown in the options of the Streamelements overlay, but provides no UI to change it. To change it, you can append your options to the url.</p>
+        <ul>
+            <li>host: Websocket host. Default: 127.0.0.1, example: host=localhost</li>
+            <li>port: Websocket port. Default: 8080, example: port=8081</li>
+            <li>endpoint: Websocket endpoint. Default: /, example: endpoint=/different</li>
+            <li>filter: Limit to only listed users. This option can either be comma separated or repeated to include multiple users. Default: filter=user1,user2 OR filter=user1&filter=user2</li>
+        </ul>
+        <p>Options in the url must be separated by ampersand (&amp;). Options must all be preceded by a '?'. https://blackholedevice.github.io/StreamElementsOverlays/kill-feed/v1/log.html<span class="emphasis">?</span>host=localhost<span class="emphasis">&amp;</span>port=8081<span class="emphasis">&amp;</span>endpoint=/different<span class="emphasis">&amp;</span>filter=user1,user2<span class="emphasis">&amp;</span>filter=user3
+        </p>
     </div>
 </body>
 </html>

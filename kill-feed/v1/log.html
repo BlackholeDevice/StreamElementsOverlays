@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kill Log</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-size: 32px;
+        }
+
+        td, th {
+            padding: 10px;
+        }
+
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <table id="main-container">
+        <tr id="header">
+            <th onclick="sortTable(0)">Time</th>
+            <th onclick="sortTable(1)">Victim</th>
+            <th onclick="sortTable(2)">Attacker</th>
+        </tr>
+    </table>
+    <script type="text/javascript" src="https://unpkg.com/@streamerbot/client/dist/streamerbot-client.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        /* globals $ */
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("main-container");
+            switching = true;
+            dir = "asc";
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    if (dir === "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir === "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+
+        $(() => {
+            const params = new URLSearchParams(window.location.search);
+            const dupeFix = {};
+            const filter = params.getAll('filter').flatMap(v => v.split(',')).map(s => (s || '').toLowerCase());
+
+            function getDate() {
+                const now = new Date();
+                const hours = now.getHours() % 12 || 12;
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                return `${hours}:${minutes}:${seconds}`;
+            }
+
+
+            function isDupe(victim, now) {
+                return dupeFix[victim] && (now - dupeFix[victim]) <= 2000;
+            }
+
+            window.addEvent = function ({attacker, victim}) {
+                const now = Date.now();
+
+                if (!(!filter.length || filter.includes(attacker.toLowerCase()) || filter.includes(victim.toLowerCase()))) {
+                    return
+                }
+
+                if (isDupe(victim, now)) {
+                    return;
+                }
+
+                dupeFix[victim] = now;
+
+                $(`<tr><td>${getDate()}</td><td>${attacker}</td><td>${victim}</td></tr>`).insertAfter($('#header'));
+            }
+            const subscribe = params.get('subscribe') || 'General.Custom';
+            const client = new StreamerbotClient({
+                // Copy from stream elements overlay
+                host: params.get('host') || '127.0.0.1',
+                port: +params.get('port') || 8080,
+                endpoint: params.get('endpoint') || '/',
+                subscribe
+            });
+
+            client.on(subscribe, ({data: event, ...data}) => {
+                if (event !== 'kill-log') {
+                    return;
+                }
+                window.addEvent(data)
+            })
+        });
+    </script>
+</body>
+</html>
