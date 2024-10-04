@@ -23,7 +23,92 @@
                 <li>Data: Can be cleared</li>
             </ol>
         <h4>Streamer.bot Setup</h4>
-        <p>[placeholder]</p>
+        <ol>
+            <li>
+                Import actions into Streamer.bot
+                <ol>
+                    <li>Copy contents of <a href="https://github.com/BlackholeDevice/StreamElementsOverlays/blob/main/kill-feed/v1/streamerbot.sb">streamerbot.sb</a> to clipboard. For convenience, there is a "Copy raw file" button at the top right of the text box.</li>
+                    <li>Launch Streamer.bot and click the button that says "Import"</li>
+                    <li>In the field labeled "Import String" paste the previously copied file contents and click the "Import" button</li>
+                </ol>
+            </li>
+            <li>
+                Configure file tails
+                <ol>
+                    <li>Navigate to Settings tab</li>
+                    <li>Navigate to the File Tails sub-tab</li>
+                    <li>Right click in the white section and click "Add"</li>
+                    <li>
+                        Set up the file tail
+                        <ul>
+                            <li>Enabled: true</li>
+                            <li>Name: Any name you want. I recommend including the release branch in the name. I.e LIVE</li>
+                            <li>File: File path to Game.log file. The file path is /path/to/game/Game.log. I.e C:\Program Files (x86)\Roberts Space Industries\StarCitizen\LIVE\Game.log</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Attach newly created file tail to all actions
+                        <ol>
+                            <li>Navigate back to Actions tab</li>
+                            <li>
+                                For each of the following actions: RestartTails, Start Tails, Stop Tails, Corpse marker
+                                <ol>
+                                    <li>Single click on action in the left-hand list</li>
+                                    <li>Under triggers (top right), on each tail, double click and select newly created tail. If no tail trigger exists, skip</li>
+                                    <li>Under sub-actions (bottom right), on each tail, double click and select newly created tail. If no tail sub-action exists, skip</li>
+                                </ol>
+                            </li>
+
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                Configure file watchers
+                <ol>
+                    <li>Navigate to Settings tab</li>
+                    <li>Navigate to the File/Folder Watchers sub-tab</li>
+                    <li>Right click in the white section and click "Add"</li>
+                    <li>
+                        Set up the file watcher
+                        <ul>
+                            <li>Enabled: checked</li>
+                            <li>As JSON: unchecked</li>
+                            <li>Include Subdirectories: unchecked</li>
+                            <li>Folder: Path to game folder. I.e C:\Program Files (x86)\Roberts Space Industries\StarCitizen\LIVE</li>
+                            <li>Filter: Game.log</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Attach newly created watcher to Game Launch Log Fix action
+                        <ol>
+                            <li>Single click on Game Launch Log Fix action in the left-hand list</li>
+                            <li>Under triggers (top right), double click each trigger and select newly created watcher</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                Configure Streamer.bot to accept websocket connections
+                <ol>
+                    <li>Navigate to Servers/Clients tab</li>
+                    <li>Navigate to Websocket Server tab (selected by default)</li>
+                    <li>
+                        Verify settings are correct
+                        <ul>
+                            <li>Auto Start: Recommend to check this</li>
+                            <li>
+                                Address: IP address to listen on. If you stream and game on the same PC, this can stay as 127.0.0.1. Otherwise, this will need to change.
+                                If you use a separate game and stream PC, you will need to run Streamer.bot on the GAME PC. Determine your internal IP address and use that here.
+                                You can also use "0.0.0.0" to listen to all connections, but this is less recommended.
+                            </li>
+                            <li>Port: Can stay 8080 in most cases. If you already have processes listening to port 8080, you can select another. It is recommend to use numbers greater than 8080. Port number must also be less than 65535</li>
+                            <li>Endpoint: Can be left as /</li>
+                        </ul>
+                    </li>
+                </ol>
+            </li>
+        </ol>
         <h3>Configuration</h3>
         <h4>Connection</h4>
         <ol>
@@ -34,9 +119,9 @@
                 <li>Debug: Debug the overlay using dummy data. No socket connection will be made. Data will be generated at a rate of 55% of fade time to ensure multiple events can be tested at once.</li>
             </ul>
             </li>
-            <li>Web socket host: Hostname of the websocket server. Default: 127.0.0.1</li>
-            <li>Web socket port: Port of the websocket server. This is specified within Streamer.bot. Default: 8080</li>
-            <li>Web socket endpoint: Websocket endpoint. This is specified within Streamer.bot. Default /</li>
+            <li>Web socket host: Hostname of the websocket server. See Streamer.bot setup instructions. Default: 127.0.0.1</li>
+            <li>Web socket port: Port of the websocket server. See Streamer.bot setup instructions. Default: 8080</li>
+            <li>Web socket endpoint: Websocket endpoint. See Streamer.bot setup instructions. Default /</li>
         </ol>
         <h4>Options</h4>
         <ol>
