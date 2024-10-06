@@ -127,7 +127,7 @@
                 subscribe
             });
 
-            client.on(subscribe, ({data: event, ...data}) => {
+            client.on(subscribe, ({data: {event, ...data}}) => {
                 if (event !== 'kill-log') {
                     return;
                 }
