@@ -100,6 +100,12 @@
                 return dupeFix[victim] && (now - dupeFix[victim]) <= 2000;
             }
 
+            function skipNpc({victim, attacker}) {
+                const regex = /^(NPC|PU)_/i;
+                const hideNpcs = params.get('hideNpcs') === 'true' || params.get('hideNpcs') === null;
+                return hideNpcs && (regex.test(attacker) || regex.test(victim));
+            }
+
             window.addEvent = function (data) {
                 const now = Date.now();
                 data.time = getDate();
@@ -109,6 +115,10 @@
                 }
 
                 if (isDupe(data.victim, now)) {
+                    return;
+                }
+
+                if(skipNpc(data)) {
                     return;
                 }
 
