@@ -15,11 +15,11 @@
     </mat-expansion-panel-header>
     <p>Create a new Overlay in StreamElements, add a new Static / Custom -> Custom widget. Copy paste the following files into their respective tabs</p>
     <mat-list>
-      <mat-list-item><app-content-url url="/kill-feed/overlay.html">text</app-content-url></mat-list-item>
-      <mat-list-item><app-content-url url="/kill-feed/overlay.css">css</app-content-url></mat-list-item>
-      <mat-list-item><app-content-url url="/kill-feed/overlay.js">js</app-content-url></mat-list-item>
-      <mat-list-item><app-content-url url="/kill-feed/fields.json">fields</app-content-url></mat-list-item>
-      <mat-list-item><span class="match-indent">Data: Set to <code>{{'{}'}}</code></span></mat-list-item>
+      <mat-list-item><app-content-url url="kill-feed/overlay.html">overlay.html</app-content-url></mat-list-item>
+      <mat-list-item><app-content-url url="kill-feed/overlay.css">overlay.css</app-content-url></mat-list-item>
+      <mat-list-item><app-content-url url="kill-feed/overlay.js">overlay.js</app-content-url></mat-list-item>
+      <mat-list-item><app-content-url url="kill-feed/fields.json">fields.json</app-content-url></mat-list-item>
+      <mat-list-item><app-content-url url="kill-feed/data.json">data.json</app-content-url></mat-list-item>
     </mat-list>
   </mat-expansion-panel>
   <mat-expansion-panel>
@@ -34,8 +34,7 @@
         <mat-list>
           <mat-list-item>
             <p>
-              Copy contents of <a mat-button color="accent" href="/kill-feed/streamerbot.sb">streamerbot.sb</a> to clipboard.
-              For convenience, there is a "Copy raw file" button at the top right of the text box.
+              Copy contents of <app-content-url url="kill-feed/streamerbot.sb">streamerbot.sb</app-content-url> to clipboard.
             </p>
           </mat-list-item>
           <mat-list-item>Launch Streamer.bot and click the button that says "Import"</mat-list-item>
@@ -202,7 +201,7 @@
       <mat-panel-title>Streamer View</mat-panel-title>
     </mat-expansion-panel-header>
     <p>
-      For convenience, you can use <a mat-button color="accent" href="/StreamElementsOverlays/kill-feed/log.html">log.html</a> as a kill dashboard.
+      For convenience, you can use <a mat-button color="accent" href="kill-feed/log.html">log.html</a> as a kill dashboard.
       This will show the same thing as the overlay without the fade time. This way, you can keep a list of deaths always visible.
       This is intended to be a behind-the-scenes view not shown on stream
     </p>

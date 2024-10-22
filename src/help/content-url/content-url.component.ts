@@ -1,8 +1,9 @@
-import {Component, inject, input} from '@angular/core';
-import {MatAnchor} from '@angular/material/button';
-import {ContentRetrieverService} from './content-retriever.service';
-import {NavigatorService} from '../../navigator.service';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { Component, inject, input } from '@angular/core';
+import { MatAnchor } from '@angular/material/button';
+import { ContentRetrieverService } from './content-retriever.service';
+import { NavigatorService } from '../../navigator.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-content-url',
@@ -11,7 +12,8 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
   standalone: true,
   imports: [
     MatAnchor,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [ContentRetrieverService, NavigatorService],
 })
