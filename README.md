@@ -11,3 +11,5 @@
 # Credit
 
 - [Permissions functionality referenced from GlitchedMythos's Phasmophobia overlay](https://github.com/GlitchedMythos/se-widgets/blob/main/phasmophobia_evidence_tracker/widget.js#L190-L217)
+
+[![Github Pages](https://github.com/BlackholeDevice/StreamElementsOverlays/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/BlackholeDevice/StreamElementsOverlays/actions/workflows/jekyll-gh-pages.yml)
