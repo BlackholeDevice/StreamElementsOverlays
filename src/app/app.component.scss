@@ -1,0 +1,35 @@
+
+
+div {
+  margin: 1vh;
+}
+
+mat-sidenav-container {
+  height: 100%;
+
+  mat-sidenav {
+    mat-toolbar {
+      padding-left: 5px;
+      padding-right: 0;
+    }
+  }
+  mat-sidenav-content {
+    margin-right: 0 !important;
+  }
+}
+
+mat-icon[matListItemIcon] {
+  //margin-inline-end: 0;
+  margin-right: 5px;
+}
+
+.container {
+  position: relative;
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.active {
+  background-color: #848484;
+}

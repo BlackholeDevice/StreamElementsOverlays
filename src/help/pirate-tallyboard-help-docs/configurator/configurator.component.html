@@ -1,0 +1,40 @@
+<span mat-dialog-title>Overlay Configurator</span>
+<mat-tab-group #tabGroup mat-dialog-content dynamicHeight>
+  <mat-tab label="Easy">
+    <form [formGroup]="easyForm">
+      <mat-form-field>
+        <mat-label>Number of items</mat-label>
+        <input matInput type="number" value="1" formControlName="lines">
+      </mat-form-field>
+    </form>
+  </mat-tab>
+  <mat-tab label="Detailed">
+    <form [formGroup]="detailedForm">
+      @for (field of detailedForm.controls.fields.controls; track field; let index = $index) {
+        <mat-form-field formArrayName="fields">
+          <mat-label>Name</mat-label>
+          <input matInput [formControlName]="index"/>
+          @if (array.length > 1) {
+            <button mat-icon-button color="warn" matSuffix (click)="remove(index)">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+          <button mat-icon-button matSuffix (click)="insert(array.length - 1)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-form-field>
+      }
+      @if (array.errors) {
+        <mat-error>Must have at least one field</mat-error>
+      }
+    </form>
+  </mat-tab>
+</mat-tab-group>
+<div mat-dialog-actions>
+  <button mat-stroked-button color="primary" (click)="copy(tabGroup.selectedIndex)">
+    Copy
+  </button>
+  <button mat-stroked-button (click)="close();">
+    Cancel
+  </button>
+</div>

@@ -1,0 +1,94 @@
+{
+  "debugMode": {
+    "type": "checkbox",
+    "label": "Blackhole's Super Secret Mode",
+    "value": false,
+    "group": "Options"
+  },
+  "fontType": {
+    "type": "googleFont",
+    "label": "Font",
+    "group": "Styles"
+  },
+  "fontColor": {
+    "type": "colorpicker",
+    "label": "Font color",
+    "value": "rgb(255, 255, 255)",
+    "group": "Styles"
+  },
+  "fontSize": {
+    "type": "number",
+    "label": "Font Size (px)",
+    "value": 14,
+    "min": 0,
+    "step": 1,
+    "group": "Styles"
+  },
+  "fontOutlineColor": {
+    "type": "colorpicker",
+    "label": "Outline Color",
+    "value": "rgb(255, 255, 255)",
+    "group": "Styles"
+  },
+  "fontOutlineThickness": {
+    "type": "number",
+    "label": "Outline Color",
+    "value": 1,
+    "min": 0,
+    "step": 1,
+    "group": "Styles"
+  },
+  "layout": {
+    "type": "dropdown",
+    "label": "Layout",
+    "value": "column",
+    "options": {
+      "column": "Vertical",
+      "row": "Horizontal"
+    },
+    "group": "Options"
+  },
+  "labelSpacing": {
+    "type": "number",
+    "label": "Spacing (px)",
+    "value": 5,
+    "min": 0,
+    "step": 1,
+    "group": "Styles"
+  },
+  "iconSize": {
+    "type": "number",
+    "label": "Icon Size (px)",
+    "value": 20,
+    "min": 0,
+    "step": 1,
+    "group": "Styles"
+  },
+  "decimalPlaces": {
+    "type": "number",
+    "label": "Decimal places",
+    "value": 1,
+    "min": 0,
+    "step": 1,
+    "group": "Options"
+  },
+  "resetCommand": {
+    "type": "string",
+    "label": "Reset command",
+    "value": "!reset",
+    "group": "Reset"
+  },
+  "resetCommandPermission": {
+    "type": "dropdown",
+    "label": "Reset permission",
+    "value": "broadcaster",
+    "options": {
+      "broadcaster": "Broadcaster",
+      "moderator": "Moderator",
+      "vip": "VIP",
+      "subscriber": "Subscriber",
+      "everyone": "Everyone"
+    },
+    "group": "Reset"
+  }
+}

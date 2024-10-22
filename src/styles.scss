@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-accordion {
+  mat-expansion-panel {
+    mat-accordion {
+      mat-expansion-panel {
+        background-color: #2a2a2a !important;
+      }
+    }
+  }
+}
+mat-list .mdc-list-item.mdc-list-item--with-one-line {
+  height: fit-content !important;
+}
+
+.mdc-list-item__content,.mdc-list-item__primary-text {
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+  text-overflow: unset !important;
+}
+
+mat-list.mdc-list {
+  mat-list.mdc-list {
+    margin-left: 24px;
+  }
+}

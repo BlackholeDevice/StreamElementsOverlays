@@ -1,0 +1,33 @@
+<mat-sidenav-container hasBackdrop="false" autosize>
+  <mat-sidenav mode="push" opened>
+    <mat-toolbar>
+      <button mat-icon-button aria-label="Menu button" (click)="toggleExpanded()">
+        <mat-icon>{{ expanded() ? 'menu_open' : 'menu' }}</mat-icon>
+      </button>
+    </mat-toolbar>
+    @if (expanded()) {
+      <div matSubheader>Overlays</div>
+    }
+    <mat-nav-list>
+      @for (overlay of overlays(); track overlay.name) {
+        <a mat-list-item routerLink="{{overlay.route}}" routerLinkActive="active">
+          @if (overlay.icon) {
+            <mat-icon matListItemIcon>{{ overlay.icon }}</mat-icon>
+          }
+          @if (expanded()) {
+            <span matListItemLine>{{ overlay.name }}</span>
+          }
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <span>{{ title() }}</span>
+    </mat-toolbar>
+    <div class="container">
+      <router-outlet/>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
