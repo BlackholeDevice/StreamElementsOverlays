@@ -35,3 +35,11 @@ mat-list.mdc-list {
     margin-left: 24px;
   }
 }
+
+.center-container {
+  position: relative;
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: fit-content;
+}

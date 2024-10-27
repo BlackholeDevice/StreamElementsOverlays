@@ -1,226 +1,228 @@
-<h1>How to</h1>
-<p>This guide will provide a rough how-to on how to use the Kill Log overlay</p>
-<mat-accordion togglePosition="before">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Prerequisites</mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-list>
-      <mat-list-item><a mat-button color="accent" href="https://streamer.bot/">Streamer.bot</a> (<a mat-button color="accent" href="https://streamer.bot/api/releases/streamer.bot/latest/download">direct download</a>)</mat-list-item>
-    </mat-list>
-  </mat-expansion-panel>
-  <mat-expansion-panel expanded>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Installation</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>Create a new Overlay in StreamElements, add a new Static / Custom -> Custom widget. Copy paste the following files into their respective tabs</p>
-    <mat-list>
-      <mat-list-item><app-content-url url="kill-feed/overlay.html">overlay.html</app-content-url></mat-list-item>
-      <mat-list-item><app-content-url url="kill-feed/overlay.css">overlay.css</app-content-url></mat-list-item>
-      <mat-list-item><app-content-url url="kill-feed/overlay.js">overlay.js</app-content-url></mat-list-item>
-      <mat-list-item><app-content-url url="kill-feed/fields.json">fields.json</app-content-url></mat-list-item>
-      <mat-list-item><app-content-url url="kill-feed/data.json">data.json</app-content-url></mat-list-item>
-    </mat-list>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Streamer.bot Setup</mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-accordion togglePosition="before">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Import actions into Streamer.bot</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>
-            <p>
-              Copy contents of <app-content-url url="kill-feed/streamerbot.sb">streamerbot.sb</app-content-url> to clipboard.
-            </p>
-          </mat-list-item>
-          <mat-list-item>Launch Streamer.bot and click the button that says "Import"</mat-list-item>
-          <mat-list-item>In the field labeled "Import String" paste the previously copied file contents and click the "Import" button</mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Configure file tails</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Navigate to Settings tab</mat-list-item>
-          <mat-list-item>Navigate to the File Tails sub-tab</mat-list-item>
-          <mat-list-item>Right click in the white section and click "Add"</mat-list-item>
-          <mat-list-item>
-            Set up the file tail
-            <mat-list>
-              <mat-list-item>Enabled: true</mat-list-item>
-              <mat-list-item>Name: Any name you want. I recommend including the release branch in the name. I.e LIVE</mat-list-item>
-              <mat-list-item>File: File path to Game.log file. The file path is /path/to/game/Game.log. I.e C:\Program Files (x86)\Roberts Space Industries\StarCitizen\LIVE\Game.log</mat-list-item>
-            </mat-list>
-          </mat-list-item>
-          <mat-list-item>
-            Attach newly created file tail to all actions
-            <mat-list>
-              <mat-list-item>Navigate back to Actions tab</mat-list-item>
-              <mat-list-item>
-                For each of the following actions: RestartTails, Start Tails, Stop Tails, Corpse marker
-                <mat-list>
-                  <mat-list-item>Single click on action in the left-hand list</mat-list-item>
-                  <mat-list-item>Under triggers (top right), on each tail, double click and select newly created tail. If no tail trigger exists, skip</mat-list-item>
-                  <mat-list-item>Under sub-actions (bottom right), on each tail, double click and select newly created tail. If no tail sub-action exists, skip</mat-list-item>
-                </mat-list>
-              </mat-list-item>
-            </mat-list>
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Configure file watchers</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Navigate to Settings tab</mat-list-item>
-          <mat-list-item>Navigate to the File/Folder Watchers sub-tab</mat-list-item>
-          <mat-list-item>Right click in the white section and click "Add"</mat-list-item>
-          <mat-list-item>
-            Set up the file watcher
-            <mat-list>
-              <mat-list-item>Enabled: checked</mat-list-item>
-              <mat-list-item>As JSON: unchecked</mat-list-item>
-              <mat-list-item>Include Subdirectories: unchecked</mat-list-item>
-              <mat-list-item>Folder: Path to game folder. I.e C:\Program Files (x86)\Roberts Space Industries\StarCitizen\LIVE</mat-list-item>
-              <mat-list-item>Filter: Game.log</mat-list-item>
-            </mat-list>
-          </mat-list-item>
-          <mat-list-item>
-            Attach newly created watcher to Game Launch Log Fix action
-            <mat-list>
-              <mat-list-item>Single click on Game Launch Log Fix action in the left-hand list</mat-list-item>
-              <mat-list-item>Under triggers (top right), double click each trigger and select newly created watcher</mat-list-item>
-            </mat-list>
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Configure Streamer.bot to accept websocket connections</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Navigate to Servers/Clients tab</mat-list-item>
-          <mat-list-item>Navigate to Websocket Server tab (selected by default)</mat-list-item>
-          <mat-list-item>
-            Verify settings are correct
-            <mat-list>
-              <mat-list-item>Auto Start: Recommend to check this</mat-list-item>
-              <mat-list-item>
-                Address: IP address to listen on. If you stream and game on the same PC, this can stay as 127.0.0.1. Otherwise, this will need to change.
-                If you use a separate game and stream PC, you will need to run Streamer.bot on the GAME PC. Determine your internal IP address and use that here.
-                You can also use "0.0.0.0" to listen to all connections, but this is less recommended.
-              </mat-list-item>
-              <mat-list-item>Port: Can stay 8080 in most cases. If you already have processes listening to port 8080, you can select another. It is recommend to use numbers greater than 8080. Port number must also be less than 65535</mat-list-item>
-              <mat-list-item>Endpoint: Can be left as /</mat-list-item>
-            </mat-list>
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Configuration</mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-accordion togglePosition="before">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Connection</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Socket Mode: How connection should be made for displaying the kill feed. Default: Streamer.bot Client</mat-list-item>
+<div class="center-container">
+  <h1>How to</h1>
+  <p>This guide will provide a rough how-to on how to use the Kill Log overlay</p>
+  <mat-accordion togglePosition="before">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Prerequisites</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-list>
+        <mat-list-item><a mat-button color="accent" href="https://streamer.bot/">Streamer.bot</a> (<a mat-button color="accent" href="https://streamer.bot/api/releases/streamer.bot/latest/download">direct download</a>)</mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Installation</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>Create a new Overlay in StreamElements, add a new Static / Custom -> Custom widget. Copy paste the following files into their respective tabs</p>
+      <mat-list>
+        <mat-list-item><app-content-url url="kill-feed/overlay.html">overlay.html</app-content-url></mat-list-item>
+        <mat-list-item><app-content-url url="kill-feed/overlay.css">overlay.css</app-content-url></mat-list-item>
+        <mat-list-item><app-content-url url="kill-feed/overlay.js">overlay.js</app-content-url></mat-list-item>
+        <mat-list-item><app-content-url url="kill-feed/fields.json">fields.json</app-content-url></mat-list-item>
+        <mat-list-item><app-content-url url="kill-feed/data.json">data.json</app-content-url></mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Streamer.bot Setup</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-accordion togglePosition="before">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Import actions into Streamer.bot</mat-panel-title>
+          </mat-expansion-panel-header>
           <mat-list>
-            <mat-list-item>Streamer.bot Client: Connect to local Streamer.bot instance using the provided connection info</mat-list-item>
-            <mat-list-item>Debug: Debug the overlay using dummy data. No socket connection will be made. Data will be generated at a rate of 55% of fade time to ensure multiple events can be tested at once.</mat-list-item>
+            <mat-list-item>
+              <p>
+                Copy contents of <app-content-url url="kill-feed/streamerbot.sb">streamerbot.sb</app-content-url> to clipboard.
+              </p>
+            </mat-list-item>
+            <mat-list-item>Launch Streamer.bot and click the button that says "Import"</mat-list-item>
+            <mat-list-item>In the field labeled "Import String" paste the previously copied file contents and click the "Import" button</mat-list-item>
           </mat-list>
-          <mat-list-item>Web socket host: Hostname of the websocket server. See Streamer.bot setup instructions. Default: 127.0.0.1</mat-list-item>
-          <mat-list-item>Web socket port: Port of the websocket server. See Streamer.bot setup instructions. Default: 8080</mat-list-item>
-          <mat-list-item>Web socket endpoint: Websocket endpoint. See Streamer.bot setup instructions. Default /</mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Options</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Show NPCs: Whether NPCs should be shown by the overlay. Default: checked</mat-list-item>
-          <mat-list-item>Fade Time: How long each event should be shown (in seconds)</mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Styles</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Font: Font to use</mat-list-item>
-          <mat-list-item>Font color: Font color</mat-list-item>
-          <mat-list-item>Font size: Font size</mat-list-item>
-          <mat-list-item>Outline color: Outline color, if present</mat-list-item>
-          <mat-list-item>Outline thickness: Outline thickness, if present</mat-list-item>
-          <mat-list-item>Alignment: Determines whether events will be left aligned or right align</mat-list-item>
-          <mat-list-item>Line spacing: Spacing between events</mat-list-item>
-          <mat-list-item>Letter spacing: Text kerning</mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Kills</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Kill icon: Image to be shown. Icon MUST be present within death message otherwise it will not be shown</mat-list-item>
-          <mat-list-item>Death message: Message to be shown for each event. Placeholders can be used in place of the following:</mat-list-item>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Configure file tails</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Navigate to Settings tab</mat-list-item>
+            <mat-list-item>Navigate to the File Tails sub-tab</mat-list-item>
+            <mat-list-item>Right click in the white section and click "Add"</mat-list-item>
+            <mat-list-item>
+              Set up the file tail
+              <mat-list>
+                <mat-list-item>Enabled: true</mat-list-item>
+                <mat-list-item>Name: Any name you want. I recommend including the release branch in the name. I.e LIVE</mat-list-item>
+                <mat-list-item>File: File path to Game.log file. The file path is /path/to/game/Game.log. I.e C:\Program Files (x86)\Roberts Space Industries\StarCitizen\LIVE\Game.log</mat-list-item>
+              </mat-list>
+            </mat-list-item>
+            <mat-list-item>
+              Attach newly created file tail to all actions
+              <mat-list>
+                <mat-list-item>Navigate back to Actions tab</mat-list-item>
+                <mat-list-item>
+                  For each of the following actions: RestartTails, Start Tails, Stop Tails, Corpse marker
+                  <mat-list>
+                    <mat-list-item>Single click on action in the left-hand list</mat-list-item>
+                    <mat-list-item>Under triggers (top right), on each tail, double click and select newly created tail. If no tail trigger exists, skip</mat-list-item>
+                    <mat-list-item>Under sub-actions (bottom right), on each tail, double click and select newly created tail. If no tail sub-action exists, skip</mat-list-item>
+                  </mat-list>
+                </mat-list-item>
+              </mat-list>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Configure file watchers</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Navigate to Settings tab</mat-list-item>
+            <mat-list-item>Navigate to the File/Folder Watchers sub-tab</mat-list-item>
+            <mat-list-item>Right click in the white section and click "Add"</mat-list-item>
+            <mat-list-item>
+              Set up the file watcher
+              <mat-list>
+                <mat-list-item>Enabled: checked</mat-list-item>
+                <mat-list-item>As JSON: unchecked</mat-list-item>
+                <mat-list-item>Include Subdirectories: unchecked</mat-list-item>
+                <mat-list-item>Folder: Path to game folder. I.e C:\Program Files (x86)\Roberts Space Industries\StarCitizen\LIVE</mat-list-item>
+                <mat-list-item>Filter: Game.log</mat-list-item>
+              </mat-list>
+            </mat-list-item>
+            <mat-list-item>
+              Attach newly created watcher to Game Launch Log Fix action
+              <mat-list>
+                <mat-list-item>Single click on Game Launch Log Fix action in the left-hand list</mat-list-item>
+                <mat-list-item>Under triggers (top right), double click each trigger and select newly created watcher</mat-list-item>
+              </mat-list>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Configure Streamer.bot to accept websocket connections</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Navigate to Servers/Clients tab</mat-list-item>
+            <mat-list-item>Navigate to Websocket Server tab (selected by default)</mat-list-item>
+            <mat-list-item>
+              Verify settings are correct
+              <mat-list>
+                <mat-list-item>Auto Start: Recommend to check this</mat-list-item>
+                <mat-list-item>
+                  Address: IP address to listen on. If you stream and game on the same PC, this can stay as 127.0.0.1. Otherwise, this will need to change.
+                  If you use a separate game and stream PC, you will need to run Streamer.bot on the GAME PC. Determine your internal IP address and use that here.
+                  You can also use "0.0.0.0" to listen to all connections, but this is less recommended.
+                </mat-list-item>
+                <mat-list-item>Port: Can stay 8080 in most cases. If you already have processes listening to port 8080, you can select another. It is recommend to use numbers greater than 8080. Port number must also be less than 65535</mat-list-item>
+                <mat-list-item>Endpoint: Can be left as /</mat-list-item>
+              </mat-list>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Configuration</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-accordion togglePosition="before">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Connection</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Socket Mode: How connection should be made for displaying the kill feed. Default: Streamer.bot Client</mat-list-item>
             <mat-list>
-              <mat-list-item><p><code>{{'{'}}attacker{{'}'}}</code>: The name of the player that got the killing blow</p></mat-list-item>
-              <mat-list-item><p><code>{{'{'}}victim{{'}'}}</code>: The name of the player killed</p></mat-list-item>
-              <mat-list-item><p><code>{{'{'}}using{{'}'}}</code>: The weapon used in the killing blow. Note: This is not a user-friendly name.</p></mat-list-item>
-              <mat-list-item><p><code>{{'{'}}damageType{{'}'}}</code>: The type of damage in the killing blow. Note: This is not a user-friendly name.</p></mat-list-item>
-              <mat-list-item><p><code>{{'{'}}zone{{'}'}}</code>: The container the victim was in at time of death. Note: This is not a user-friendly name.</p></mat-list-item>
-              <mat-list-item><p><code>{{'{'}}icon{{'}'}}</code>: The icon specified in the kill icon option</p></mat-list-item>
+              <mat-list-item>Streamer.bot Client: Connect to local Streamer.bot instance using the provided connection info</mat-list-item>
+              <mat-list-item>Debug: Debug the overlay using dummy data. No socket connection will be made. Data will be generated at a rate of 55% of fade time to ensure multiple events can be tested at once.</mat-list-item>
             </mat-list>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Notes</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Ballistic kills and Laser kills apply to kills via Ballistic and energy FPS weapons, not ship weapons</mat-list-item>
-          <mat-list-item>Icons and messages specified under "Other Kills" will be used as defaults when no other category applies.</mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Streamer View</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>
-      For convenience, you can use <a mat-button color="accent" href="kill-feed/log.html">log.html</a> as a kill dashboard.
-      This will show the same thing as the overlay without the fade time. This way, you can keep a list of deaths always visible.
-      This is intended to be a behind-the-scenes view not shown on stream
-    </p>
-    <mat-accordion togglePosition="before">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Configuration</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>This log view uses the default settings as shown in the options of the Streamelements overlay, but provides no UI to change it. To change it, you can append your options to the url.</p>
-        <mat-list>
-          <mat-list-item>host: Websocket host. Default: 127.0.0.1, example: host=localhost</mat-list-item>
-          <mat-list-item>port: Websocket port. Default: 8080, example: port=8081</mat-list-item>
-          <mat-list-item>endpoint: Websocket endpoint. Default: /, example: endpoint=/different</mat-list-item>
-          <mat-list-item>filter: Limit to only listed users. This option can either be comma separated or repeated to include multiple users. Default: filter=user1,user2 OR filter=user1&filter=user2</mat-list-item>
-          <mat-list-item>fields: Change the order of the columns. This option can be either comma separated or repeated. Available columns (case sensitive): time, victim, attacker. Default: time,victim,attacker.</mat-list-item>
-        </mat-list>
-        <p>Options in the url must be separated by ampersand (&amp;). Options must all be preceded by a '?'. https://blackholedevice.github.io/StreamElementsOverlays/kill-feed/v1/log.html<span class="emphasis">?</span>host=localhost<span class="emphasis">&amp;</span>port=8081<span class="emphasis">&amp;</span>endpoint=/different<span class="emphasis">&amp;</span>filter=user1,user2<span class="emphasis">&amp;</span>filter=user3
-        </p>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </mat-expansion-panel>
-</mat-accordion>
+            <mat-list-item>Web socket host: Hostname of the websocket server. See Streamer.bot setup instructions. Default: 127.0.0.1</mat-list-item>
+            <mat-list-item>Web socket port: Port of the websocket server. See Streamer.bot setup instructions. Default: 8080</mat-list-item>
+            <mat-list-item>Web socket endpoint: Websocket endpoint. See Streamer.bot setup instructions. Default /</mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Options</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Show NPCs: Whether NPCs should be shown by the overlay. Default: checked</mat-list-item>
+            <mat-list-item>Fade Time: How long each event should be shown (in seconds)</mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Styles</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Font: Font to use</mat-list-item>
+            <mat-list-item>Font color: Font color</mat-list-item>
+            <mat-list-item>Font size: Font size</mat-list-item>
+            <mat-list-item>Outline color: Outline color, if present</mat-list-item>
+            <mat-list-item>Outline thickness: Outline thickness, if present</mat-list-item>
+            <mat-list-item>Alignment: Determines whether events will be left aligned or right align</mat-list-item>
+            <mat-list-item>Line spacing: Spacing between events</mat-list-item>
+            <mat-list-item>Letter spacing: Text kerning</mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Kills</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Kill icon: Image to be shown. Icon MUST be present within death message otherwise it will not be shown</mat-list-item>
+            <mat-list-item>Death message: Message to be shown for each event. Placeholders can be used in place of the following:</mat-list-item>
+              <mat-list>
+                <mat-list-item><p><code>{{'{'}}attacker{{'}'}}</code>: The name of the player that got the killing blow</p></mat-list-item>
+                <mat-list-item><p><code>{{'{'}}victim{{'}'}}</code>: The name of the player killed</p></mat-list-item>
+                <mat-list-item><p><code>{{'{'}}using{{'}'}}</code>: The weapon used in the killing blow. Note: This is not a user-friendly name.</p></mat-list-item>
+                <mat-list-item><p><code>{{'{'}}damageType{{'}'}}</code>: The type of damage in the killing blow. Note: This is not a user-friendly name.</p></mat-list-item>
+                <mat-list-item><p><code>{{'{'}}zone{{'}'}}</code>: The container the victim was in at time of death. Note: This is not a user-friendly name.</p></mat-list-item>
+                <mat-list-item><p><code>{{'{'}}icon{{'}'}}</code>: The icon specified in the kill icon option</p></mat-list-item>
+              </mat-list>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Notes</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Ballistic kills and Laser kills apply to kills via Ballistic and energy FPS weapons, not ship weapons</mat-list-item>
+            <mat-list-item>Icons and messages specified under "Other Kills" will be used as defaults when no other category applies.</mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Streamer View</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>
+        For convenience, you can use <a mat-button color="accent" href="kill-feed/log.html">log.html</a> as a kill dashboard.
+        This will show the same thing as the overlay without the fade time. This way, you can keep a list of deaths always visible.
+        This is intended to be a behind-the-scenes view not shown on stream
+      </p>
+      <mat-accordion togglePosition="before">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Configuration</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>This log view uses the default settings as shown in the options of the Streamelements overlay, but provides no UI to change it. To change it, you can append your options to the url.</p>
+          <mat-list>
+            <mat-list-item>host: Websocket host. Default: 127.0.0.1, example: host=localhost</mat-list-item>
+            <mat-list-item>port: Websocket port. Default: 8080, example: port=8081</mat-list-item>
+            <mat-list-item>endpoint: Websocket endpoint. Default: /, example: endpoint=/different</mat-list-item>
+            <mat-list-item>filter: Limit to only listed users. This option can either be comma separated or repeated to include multiple users. Default: filter=user1,user2 OR filter=user1&filter=user2</mat-list-item>
+            <mat-list-item>fields: Change the order of the columns. This option can be either comma separated or repeated. Available columns (case sensitive): time, victim, attacker. Default: time,victim,attacker.</mat-list-item>
+          </mat-list>
+          <p>Options in the url must be separated by ampersand (&amp;). Options must all be preceded by a '?'. https://blackholedevice.github.io/StreamElementsOverlays/kill-feed/v1/log.html<span class="emphasis">?</span>host=localhost<span class="emphasis">&amp;</span>port=8081<span class="emphasis">&amp;</span>endpoint=/different<span class="emphasis">&amp;</span>filter=user1,user2<span class="emphasis">&amp;</span>filter=user3
+          </p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

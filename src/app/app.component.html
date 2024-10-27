@@ -5,21 +5,8 @@
         <mat-icon>{{ expanded() ? 'menu_open' : 'menu' }}</mat-icon>
       </button>
     </mat-toolbar>
-    @if (expanded()) {
-      <div matSubheader>Overlays</div>
-    }
-    <mat-nav-list>
-      @for (overlay of overlays(); track overlay.name) {
-        <a mat-list-item routerLink="{{overlay.route}}" routerLinkActive="active">
-          @if (overlay.icon) {
-            <mat-icon matListItemIcon>{{ overlay.icon }}</mat-icon>
-          }
-          @if (expanded()) {
-            <span matListItemLine>{{ overlay.name }}</span>
-          }
-        </a>
-      }
-    </mat-nav-list>
+    <app-nav-list category="Overlays" routerLinkBase="/overlays" [links]="overlays()" [expanded]="expanded()"></app-nav-list>
+    <app-nav-list category="Utilities" routerLinkBase="/utilities" [links]="utilities()" [expanded]="expanded()"></app-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">

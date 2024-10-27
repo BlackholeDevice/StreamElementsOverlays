@@ -1,0 +1,15 @@
+@if (expanded()) {
+  <div matSubheader>{{ category() }}</div>
+}
+<mat-nav-list>
+  @for (link of links(); track link.name) {
+    <a mat-list-item routerLink="{{routerLinkBase()}}{{link.route}}" routerLinkActive="active">
+      @if (link.icon) {
+        <mat-icon matListItemIcon>{{ link.icon }}</mat-icon>
+      }
+      @if (expanded()) {
+        <span matListItemLine>{{ link.name }}</span>
+      }
+    </a>
+  }
+</mat-nav-list>

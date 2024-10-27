@@ -1,105 +1,107 @@
-<h1>How to</h1>
-<p>This guide will provide a rough how-to on how to use the Pirate Tallyboard overlay as well as provide a
-  simple configurator for adding new items to the board.</p>
-<mat-accordion displayMode="default" togglePosition="before">
-  <mat-expansion-panel expanded>
-    <mat-expansion-panel-header>
-      Installation
-    </mat-expansion-panel-header>
-    <p>You can install this overlay one of two ways.</p>
-    <mat-list>
-      <mat-list-item>
-        <a matListItemTitle mat-button color="accent" class="strike" href="https://streamelements.com/dashboard/overlays/share/663937583614bc0afcd8aa9f">One click automatic installation</a>
-      </mat-list-item>
-      <mat-accordion togglePosition="before">
+<div class="center-container">
+  <h1>How to</h1>
+  <p>This guide will provide a rough how-to on how to use the Pirate Tallyboard overlay as well as provide a
+    simple configurator for adding new items to the board.</p>
+  <mat-accordion displayMode="default" togglePosition="before">
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        Installation
+      </mat-expansion-panel-header>
+      <p>You can install this overlay one of two ways.</p>
+      <mat-list>
+        <mat-list-item>
+          <a matListItemTitle mat-button color="accent" class="strike" href="https://streamelements.com/dashboard/overlays/share/663937583614bc0afcd8aa9f">One click automatic installation</a>
+        </mat-list-item>
+        <mat-accordion togglePosition="before">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Manual Installation</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Create a new Overlay in StreamElements, add a new Static / Custom -> Custom widget. Copy paste the
+              following files into their respective tabs</p>
+            <mat-list>
+              <mat-list-item><app-content-url url="pirate-tallyboard/overlay.html">overlay.html</app-content-url></mat-list-item>
+              <mat-list-item><app-content-url url="pirate-tallyboard/overlay.css">overlay.css</app-content-url></mat-list-item>
+              <mat-list-item><app-content-url url="pirate-tallyboard/overlay.js">overlay.js</app-content-url></mat-list-item>
+              <mat-list-item><app-content-url url="pirate-tallyboard/fields.json">fields.json</app-content-url></mat-list-item>
+              <mat-list-item><app-content-url url="pirate-tallyboard/data.json">data.json</app-content-url></mat-list-item>
+            </mat-list>
+            <button mat-stroked-button color="accent" (click)="launchConfigurator()">
+              <mat-icon>open_in_new</mat-icon>See the configurator</button>
+            for simplified fields.json setup
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>Configuration</mat-expansion-panel-header>
+      <mat-accordion togglePosition="before" class="mat-elevation-z10">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Manual Installation</mat-panel-title>
+            <mat-panel-title>Font</mat-panel-title>
           </mat-expansion-panel-header>
-          <p>Create a new Overlay in StreamElements, add a new Static / Custom -> Custom widget. Copy paste the
-            following files into their respective tabs</p>
           <mat-list>
-            <mat-list-item><app-content-url url="pirate-tallyboard/overlay.html">overlay.html</app-content-url></mat-list-item>
-            <mat-list-item><app-content-url url="pirate-tallyboard/overlay.css">overlay.css</app-content-url></mat-list-item>
-            <mat-list-item><app-content-url url="pirate-tallyboard/overlay.js">overlay.js</app-content-url></mat-list-item>
-            <mat-list-item><app-content-url url="pirate-tallyboard/fields.json">fields.json</app-content-url></mat-list-item>
-            <mat-list-item><app-content-url url="pirate-tallyboard/data.json">data.json</app-content-url></mat-list-item>
+            <mat-list-item>Font: Font face to display text in</mat-list-item>
+            <mat-list-item>Font color: Font color</mat-list-item>
+            <mat-list-item>Font size: Size of the font in px, not pt</mat-list-item>
+            <mat-list-item>Outline color: Outline to highlight text to improve visibility. To disable, just set outline to the
+              same
+              as the font
+            </mat-list-item>
           </mat-list>
-          <button mat-stroked-button color="accent" (click)="launchConfigurator()">
-            <mat-icon>open_in_new</mat-icon>See the configurator</button>
-          for simplified fields.json setup
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Formatting</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Layout: Whether to layout the list horizontally or vertically</mat-list-item>
+            <mat-list-item>Spacing: Space between icon and label for each item</mat-list-item>
+            <mat-list-item>Icon size: square size of the icon in pixels. Any image that is not square will be squished into a
+              square
+            </mat-list-item>
+            <mat-list-item>Decimal places: How many decimal places to show in abbreviated numbers. I.e, 1.23m. A value of 0 will
+              cause it to
+              display whole numbers only.
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Reset</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Reset command: Command to use to reset all items to 0. Command will only function while overlay is
+              visible
+            </mat-list-item>
+            <mat-list-item>Reset permission: What level of user is allowed to use the reset command. Permission hierarchy will
+              allow all
+              users at or above the selection to use the command. I.e, setting the value to "Subscriber" will still allow VIPs,
+              Moderator, and Broadcaster to use the command.
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Line X</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>Field Label: Text label to show on item. Can be left blank if no text is desired.</mat-list-item>
+            <mat-list-item>Field icon: Icon to show on item</mat-list-item>
+            <mat-list-item>Field command: Command to use for this item</mat-list-item>
+            <mat-list-item>Field type: Must select "Counter" or "Accumulator". Counters will count the number of times a thing as
+              occurred.
+              Accumulator will track a running total. When using an accumulator, values can be shorthanded using k or m
+              abbreviations. I.e, 1230000 can be abbreviated as 1.23m
+            </mat-list-item>
+            <mat-list-item>Command permission: What level of user is allowed to use the command. Permission hierarchy will allow
+              all users at
+              or above the selection to use the command. I.e, setting the value to "Subscriber" will still allow VIPs, Moderator,
+              and Broadcaster to use the command.
+            </mat-list-item>
+          </mat-list>
         </mat-expansion-panel>
       </mat-accordion>
-    </mat-list>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>Configuration</mat-expansion-panel-header>
-    <mat-accordion togglePosition="before" class="mat-elevation-z10">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Font</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Font: Font face to display text in</mat-list-item>
-          <mat-list-item>Font color: Font color</mat-list-item>
-          <mat-list-item>Font size: Size of the font in px, not pt</mat-list-item>
-          <mat-list-item>Outline color: Outline to highlight text to improve visibility. To disable, just set outline to the
-            same
-            as the font
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Formatting</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Layout: Whether to layout the list horizontally or vertically</mat-list-item>
-          <mat-list-item>Spacing: Space between icon and label for each item</mat-list-item>
-          <mat-list-item>Icon size: square size of the icon in pixels. Any image that is not square will be squished into a
-            square
-          </mat-list-item>
-          <mat-list-item>Decimal places: How many decimal places to show in abbreviated numbers. I.e, 1.23m. A value of 0 will
-            cause it to
-            display whole numbers only.
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Reset</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Reset command: Command to use to reset all items to 0. Command will only function while overlay is
-            visible
-          </mat-list-item>
-          <mat-list-item>Reset permission: What level of user is allowed to use the reset command. Permission hierarchy will
-            allow all
-            users at or above the selection to use the command. I.e, setting the value to "Subscriber" will still allow VIPs,
-            Moderator, and Broadcaster to use the command.
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Line X</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item>Field Label: Text label to show on item. Can be left blank if no text is desired.</mat-list-item>
-          <mat-list-item>Field icon: Icon to show on item</mat-list-item>
-          <mat-list-item>Field command: Command to use for this item</mat-list-item>
-          <mat-list-item>Field type: Must select "Counter" or "Accumulator". Counters will count the number of times a thing as
-            occurred.
-            Accumulator will track a running total. When using an accumulator, values can be shorthanded using k or m
-            abbreviations. I.e, 1230000 can be abbreviated as 1.23m
-          </mat-list-item>
-          <mat-list-item>Command permission: What level of user is allowed to use the command. Permission hierarchy will allow
-            all users at
-            or above the selection to use the command. I.e, setting the value to "Subscriber" will still allow VIPs, Moderator,
-            and Broadcaster to use the command.
-          </mat-list-item>
-        </mat-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </mat-expansion-panel>
-</mat-accordion>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

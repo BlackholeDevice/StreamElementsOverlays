@@ -9,24 +9,23 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {KeyValuePipe} from '@angular/common';
-
-interface NavItem {
-  name: string;
-  route: string;
-  icon?: string,
-}
+import {NavItem} from './nav-list/nav-item.model';
+import {NavListComponent} from './nav-list/nav-list.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true,
-  imports: [RouterModule, MatButtonModule, MatIconModule, MatSidenavModule, MatToolbarModule, MatListModule, KeyValuePipe]
+  imports: [RouterModule, MatButtonModule, MatIconModule, MatSidenavModule, MatToolbarModule, MatListModule, KeyValuePipe, NavListComponent]
 })
 export class AppComponent implements OnInit {
   public readonly overlays = signal<NavItem[]>([
-    {name: 'Pirate Tallyboard', route: '/overlays/pirate-tallyboard', icon: 'scoreboard'},
-    {name: 'Kill Feed', route: '/overlays/kill-feed', icon: 'list'},
+    {name: 'Pirate Tallyboard', route: '/pirate-tallyboard', icon: 'scoreboard'},
+    {name: 'Kill Feed', route: '/kill-feed', icon: 'list'},
+  ]);
+  public readonly utilities = signal<NavItem[]>([
+    {name: 'Kill Log', route: '/kill-log', icon: 'list_alt_check'}
   ]);
   public title = signal('Failed to load')
   public expanded = signal(false);

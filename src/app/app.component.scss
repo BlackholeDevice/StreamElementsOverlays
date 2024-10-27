@@ -17,19 +17,3 @@ mat-sidenav-container {
     margin-right: 0 !important;
   }
 }
-
-mat-icon[matListItemIcon] {
-  //margin-inline-end: 0;
-  margin-right: 5px;
-}
-
-.container {
-  position: relative;
-  width: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.active {
-  background-color: #848484;
-}

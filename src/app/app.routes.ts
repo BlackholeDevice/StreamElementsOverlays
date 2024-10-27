@@ -4,6 +4,7 @@ import {
   PirateTallyboardHelpDocsComponent
 } from '../help/pirate-tallyboard-help-docs/pirate-tallyboard-help-docs.component';
 import {KillFeedHelpDocsComponent} from '../help/kill-feed-help-docs/kill-feed-help-docs.component';
+import {KillLogComponent} from '../kill-log/kill-log.component';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,17 @@ export const routes: Routes = [
         data: {subtitle: 'Kill Feed'}
       }
     ]
+  },
+  {
+    path: 'utilities',
+    children: [
+      {
+        path: 'kill-log',
+        component: KillLogComponent,
+        data: {subtitle: 'Kill Log - Partially Functional Preview'}
+      },
+    ],
+    data: {title: 'Utilities'}
   },
   {
     path: '**',
