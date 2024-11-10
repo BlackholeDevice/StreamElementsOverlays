@@ -30,7 +30,7 @@ export class StreamerbotService {
   public connected = signal(false);
 
   public connect<T>(config: ConnectionConfig): Observable<T> {
-    if (!this.client) {
+    if (!this.client || !this.equals(config, this.config)) {
       this.client = this.newConnection(config);
     }
 
