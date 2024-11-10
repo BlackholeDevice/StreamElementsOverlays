@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import {Component, computed, inject, input} from '@angular/core';
 import { MatAnchor } from '@angular/material/button';
 import { ContentRetrieverService } from './content-retriever.service';
 import { NavigatorService } from '../../navigator.service';
@@ -20,8 +20,15 @@ import { MatIconModule } from '@angular/material/icon';
 export class ContentUrlComponent {
   private service = inject(ContentRetrieverService);
   public url = input('');
+  public action = input<'copy' | 'open'>('copy')
+  public icon = computed(() => this.action() === 'open' ? 'open_in_new' : 'content_copy');
 
-  public copyContent(): boolean {
+  public click(): boolean {
+    if(this.action() === 'open') {
+      window.open(this.url(), '_blank');
+      return false;
+    }
+
     this.service.fetchAndCopy(this.url());
     return false;
   }

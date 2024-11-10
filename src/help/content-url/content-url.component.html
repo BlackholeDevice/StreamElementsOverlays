@@ -1,1 +1,4 @@
-<a mat-stroked-button color="accent" href="{{url()}}" (click)="copyContent()"><mat-icon>content_copy</mat-icon><ng-content></ng-content></a>
+<a mat-stroked-button color="accent" href="{{url()}}" (click)="click()">
+  <mat-icon>{{ icon() }}</mat-icon>
+  <ng-content></ng-content>
+</a>

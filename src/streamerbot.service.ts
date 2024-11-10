@@ -5,17 +5,26 @@ import {
   StreamerbotEventName,
   StreamerbotEventsSubscription
 } from '@streamerbot/client';
-import { equals, pick } from 'lodash/fp';
+import {equals, pick} from 'lodash/fp';
 import {from, Observable, ReplaySubject} from 'rxjs';
 
 type StreamerbotEventSubscription = StreamerbotEventsSubscription | '*';
-type ConnectionConfig = Partial<StreamerbotClientOptions>
+export type ConnectionConfig = Partial<StreamerbotClientOptions>
 
 @Injectable({
   providedIn: 'root'
 })
 export class StreamerbotService {
   private readonly subj = new ReplaySubject();
+  private readonly subj$ = this.subj.asObservable().pipe(
+    // switchMap(data => {
+    //   const error = get('error', data);
+    //   if(error) {
+    //     return throwError(() => error);
+    //   }
+    //   return of(data);
+    // })
+  );
   private client?: StreamerbotClient;
   private config: ConnectionConfig = {};
   public connected = signal(false);
@@ -25,7 +34,7 @@ export class StreamerbotService {
       this.client = this.newConnection(config);
     }
 
-    return this.subj.asObservable() as Observable<T>;
+    return this.subj$ as Observable<T>;
   }
 
   public disconnect(): void {
@@ -40,7 +49,7 @@ export class StreamerbotService {
   }
 
   private equals(l: ConnectionConfig, r: ConnectionConfig): boolean {
-    const fields = pick(['host', 'port', 'endpoint'] as (keyof ConnectionConfig)[]);
+    const fields = pick(['host', 'port', 'endpoint', 'scheme'] as (keyof ConnectionConfig)[]);
     return equals(fields(l), fields(r))
   }
 
@@ -59,11 +68,11 @@ export class StreamerbotService {
       ...config,
       onConnect: () => this.connected.set(true),
       onDisconnect: () => this.connected.set(false),
-      onError: (err) => console.error('Error', err)
+      onError: (error) => this.subj.error(error)
     });
 
     from(client.on(this.subscriptionToEventName(subscribe), ({data}) => {
-      this.subj.next({...data, timestamp: Date.now()});
+      this.subj.next({...data, timestamp: new Date(data.timestamp).getTime()});
     })).subscribe();
 
     return client;

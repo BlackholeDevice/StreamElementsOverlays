@@ -10,7 +10,7 @@
         <mat-list-item><a mat-button color="accent" href="https://streamer.bot/">Streamer.bot</a> (<a mat-button color="accent" href="https://streamer.bot/api/releases/streamer.bot/latest/download">direct download</a>)</mat-list-item>
       </mat-list>
     </mat-expansion-panel>
-    <mat-expansion-panel expanded>
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Installation</mat-panel-title>
       </mat-expansion-panel-header>
@@ -23,7 +23,7 @@
         <mat-list-item><app-content-url url="kill-feed/data.json">data.json</app-content-url></mat-list-item>
       </mat-list>
     </mat-expansion-panel>
-    <mat-expansion-panel>
+    <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>Streamer.bot Setup</mat-panel-title>
       </mat-expansion-panel-header>
@@ -35,7 +35,10 @@
           <mat-list>
             <mat-list-item>
               <p>
-                Copy contents of <app-content-url url="kill-feed/streamerbot.sb">streamerbot.sb</app-content-url> to clipboard.
+                Copy contents of <app-content-url url="kill-feed/streamerbot/streamerbot.sb">streamerbot.sb</app-content-url> to clipboard.
+              </p>
+              <p>
+                For transparency, CS scripts can be <app-content-url url="https://github.com/BlackholeDevice/StreamElementsOverlays/tree/main/public/kill-feed/cs" action="open">viewed in GitHub</app-content-url>.
               </p>
             </mat-list-item>
             <mat-list-item>Launch Streamer.bot and click the button that says "Import"</mat-list-item>
@@ -123,11 +126,121 @@
             </mat-list-item>
           </mat-list>
         </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Configure SC Tool integration (Optional)</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>
+            SC Tool integration can be configured by specifying your API key. Your API key can be obtained from the SC Tool website.
+          </p>
+          <p>
+            Requires discord login. API keys are discord server specific.
+            Be sure to select the correct member discord to generate an API key.
+          </p>
+          <mat-list>
+            <mat-list-item>Log in to <app-content-url url="https://starcitizentool.com" action="open">SCTool website</app-content-url></mat-list-item>
+            <mat-list-item>Select your discord server</mat-list-item>
+            <mat-list-item>Navigate to Kill Tracker, then select "Manage API Keys" from the top left. <app-content-url url="https://starcitizentool.com/kills/manage_api_keys" action="open">Or click here.</app-content-url> </mat-list-item>
+            <mat-list-item>If you are an admin in the selected discord: You will have to repeat the previous steps a couple times.</mat-list-item>
+            <mat-list-item>Click "Generate New API Key" at the top of the screen. Note: Your key will NOT be shown again. Make sure you save it</mat-list-item>
+            <mat-list-item>In StreamerBot, click "Variables" at the top and add a new variable called "SCTOOLS_API_KEY" and paste your API Key</mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Configure Twitch Integration (Optional)</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Twitch Integration can be configured to automatically generate clips and post those clip links in chat. Clip links will automatically be used to in events sent to SC Tool. Limitation: Automatic clip generation currently depends on SC Tool integration</p>
+          <mat-list>
+            <mat-list-item>Navigate to "Platforms", then "Twitch" tab.</mat-list-item>
+            <mat-list-item>Log into broadcaster account (the account you stream under)</mat-list-item>
+            <mat-list-item>(Optional) Log into your bot account (Only needed if you use a different bot account from your twitch account).</mat-list-item>
+            <mat-list-item><a mat-stroked-button color="accent" (click)="obs.toggle()"> Connect OBS to Streamerbot</a></mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel #obs>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Configure OBS Integration (Required if using Twitch Integration)</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>OBS integration is used to automatically determine if you are streaming in order to automatically generate kill clips. Requires OBS Studio v28+</p>
+          <mat-list>
+            <mat-list-item>Open OBS Studio</mat-list-item>
+            <mat-list-item>Navigate to Tools -> Websocket Server Settings</mat-list-item>
+            <mat-list-item>Check "Enable WebSocket server"</mat-list-item>
+            <mat-list-item>Click "Generate Password"</mat-list-item>
+            <mat-list-item>Click "Show Connection Info"</mat-list-item>
+            <mat-list-item>In Streamerbot, navigate to "Stream Apps" -> OBS</mat-list-item>
+            <mat-list-item>
+              Right click the list and click "Add"
+            <mat-list>
+              <mat-list-item>Name: Can be anything</mat-list-item>
+              <mat-list-item>Version: leave as is</mat-list-item>
+              <mat-list-item>Host: IP address of the computer running OBS. This will usually be 127.0.0.1 if OBS and Streamerbot are on the same PC.</mat-list-item>
+              <mat-list-item>Port: Port number from OBS connection info window</mat-list-item>
+              <mat-list-item>Password: Password from OBS connection info window</mat-list-item>
+              <mat-list-item>Auto Connect on Startup: Check this</mat-list-item>
+              <mat-list-item>Reconnect on Disconnect: Check this</mat-list-item>
+              <mat-list-item>Retry Interval: Can leave as is</mat-list-item>
+            </mat-list>
+            </mat-list-item>
+
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>Configure Discord Integration (Optional)</mat-expansion-panel-header>
+          <p>Discord integration requires you to have access to configure Webhooks. This connection is only used to automatically post clips to discord. Requires Twitch Integration</p>
+          <mat-list>
+            <mat-list-item>In discord: Navigate to channel you want clips posted to (or create a new one).</mat-list-item>
+            <mat-list-item>Open channel settings</mat-list-item>
+            <mat-list-item>Navigate to Integrations > Webhooks > New Webhook</mat-list-item>
+            <mat-list-item>Webhook name and icon can be freely customized as needed</mat-list-item>
+            <mat-list-item>Click webhook to expand and click "Copy Webhook URL"</mat-list-item>
+            <mat-list-item>In streamerbot find action called "Chat - Send Message"</mat-list-item>
+            <mat-list-item>
+              Under sub actions, double click on "Discord Basic Webhook"
+              <mat-list>
+                <mat-list-item>Webhook name: Can be anything</mat-list-item>
+                <mat-list-item>Username: Override the webhook name in discord. This name is what will show in discord chat messagea</mat-list-item>
+                <mat-list-item>
+                  Content: Message content. By default, this message will be generated by other actions, but can be customized as needed. Variables can be used.
+                </mat-list-item>
+              </mat-list>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel expanded>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Customization</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>A couple options are available for customizing messages.</p>
+          <mat-list>
+            <mat-list-item>
+              Twitch clip message: Under action "Twitch - Create clip" action, double click on the sub action 'Set argument %message%...' and change accordingly.
+              Note: Message should NOT be star citizen specific because this will also integrate with !clip command
+            </mat-list-item>
+            <mat-list-item>
+              Kill messages: Under action "SC Actor Death Clip Message", double click on the sub action 'Set argument %message%...' and change accordingly.
+
+              <mat-list>
+                <mat-list-item><code>%victim%</code>: Victim name</mat-list-item>
+                <mat-list-item><code>%attacker%</code>: Attacker name</mat-list-item>
+                <mat-list-item><code>%zone%</code>: Victim location</mat-list-item>
+                <mat-list-item><code>%weapon%</code>: Weapon victim was killed with</mat-list-item>
+                <mat-list-item><code>%damageType%</code>: Type of damage that killed the victim</mat-list-item>
+              </mat-list>
+              <p>
+                Note: It is not necessary to add <code>%createClipUrl%</code> to the message because this is already added by other actions.
+                Other variables are available but are not documented as they are not user friendly.
+              </p>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
       </mat-accordion>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        <mat-panel-title>Configuration</mat-panel-title>
+        <mat-panel-title>Overlay Configuration</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-accordion togglePosition="before">
         <mat-expansion-panel>
