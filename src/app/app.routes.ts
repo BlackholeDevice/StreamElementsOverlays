@@ -1,5 +1,4 @@
 import {Routes} from '@angular/router';
-import {HomeComponent} from '../home/home.component';
 import {
   PirateTallyboardHelpDocsComponent
 } from '../help/pirate-tallyboard-help-docs/pirate-tallyboard-help-docs.component';
@@ -9,8 +8,8 @@ import {KillLogComponent} from '../kill-log/kill-log.component';
 export const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent,
-    data: {title: 'Really long home title'}
+    pathMatch: 'full',
+    redirectTo: '/overlays/pirate-tallyboard',
   },
   {
     path: 'overlays',
@@ -34,7 +33,7 @@ export const routes: Routes = [
       {
         path: 'kill-log',
         component: KillLogComponent,
-        data: {subtitle: 'Kill Log - Partially Functional Preview'}
+        data: {subtitle: 'Kill Log'}
       },
     ],
     data: {title: 'Utilities'}
@@ -42,7 +41,7 @@ export const routes: Routes = [
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'home',
+    redirectTo: '/overlays/pirate-tallyboard',
     data: {title: 'Redirecting...'}
   }
 ];

@@ -7,31 +7,18 @@
       <mat-expansion-panel-header>
         Installation
       </mat-expansion-panel-header>
-      <p>You can install this overlay one of two ways.</p>
+      <p>Create a new Overlay in StreamElements, add a new Static / Custom -> Custom widget. Copy paste the
+        following files into their respective tabs</p>
       <mat-list>
-        <mat-list-item>
-          <a matListItemTitle mat-button color="accent" class="strike" href="https://streamelements.com/dashboard/overlays/share/663937583614bc0afcd8aa9f">One click automatic installation</a>
-        </mat-list-item>
-        <mat-accordion togglePosition="before">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>Manual Installation</mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>Create a new Overlay in StreamElements, add a new Static / Custom -> Custom widget. Copy paste the
-              following files into their respective tabs</p>
-            <mat-list>
-              <mat-list-item><app-content-url url="pirate-tallyboard/overlay.html">overlay.html</app-content-url></mat-list-item>
-              <mat-list-item><app-content-url url="pirate-tallyboard/overlay.css">overlay.css</app-content-url></mat-list-item>
-              <mat-list-item><app-content-url url="pirate-tallyboard/overlay.js">overlay.js</app-content-url></mat-list-item>
-              <mat-list-item><app-content-url url="pirate-tallyboard/fields.json">fields.json</app-content-url></mat-list-item>
-              <mat-list-item><app-content-url url="pirate-tallyboard/data.json">data.json</app-content-url></mat-list-item>
-            </mat-list>
-            <button mat-stroked-button color="accent" (click)="launchConfigurator()">
-              <mat-icon>open_in_new</mat-icon>See the configurator</button>
-            for simplified fields.json setup
-          </mat-expansion-panel>
-        </mat-accordion>
+        <mat-list-item><app-content-url url="pirate-tallyboard/overlay.html">overlay.html</app-content-url></mat-list-item>
+        <mat-list-item><app-content-url url="pirate-tallyboard/overlay.css">overlay.css</app-content-url></mat-list-item>
+        <mat-list-item><app-content-url url="pirate-tallyboard/overlay.js">overlay.js</app-content-url></mat-list-item>
+        <mat-list-item><app-content-url url="pirate-tallyboard/fields.json">fields.json</app-content-url></mat-list-item>
+        <mat-list-item><app-content-url url="pirate-tallyboard/data.json">data.json</app-content-url></mat-list-item>
       </mat-list>
+      <button mat-stroked-button color="accent" (click)="launchConfigurator()">
+        <mat-icon>open_in_new</mat-icon>See the configurator</button>
+      for simplified fields.json setup
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>Configuration</mat-expansion-panel-header>

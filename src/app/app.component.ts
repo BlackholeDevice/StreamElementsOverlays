@@ -1,4 +1,4 @@
-import {Component, DestroyRef, OnInit, signal} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {ActivationStart, Data, Router, RouterModule} from '@angular/router';
 import {distinctUntilChanged, filter, map, shareReplay} from 'rxjs';
 import {get, getOr} from 'lodash/fp';
@@ -11,6 +11,7 @@ import {MatListModule} from '@angular/material/list';
 import {KeyValuePipe} from '@angular/common';
 import {NavItem} from './nav-list/nav-item.model';
 import {NavListComponent} from './nav-list/nav-list.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -29,9 +30,9 @@ export class AppComponent implements OnInit {
   ]);
   public title = signal('Failed to load')
   public expanded = signal(false);
-
-  constructor(private router: Router, private destroyRef: DestroyRef) {
-  }
+  private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
+  private titleService = inject(Title);
 
   public ngOnInit(): void {
     this.router.events.pipe(
@@ -42,6 +43,7 @@ export class AppComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
     ).subscribe((data: Data) => {
       this.title.set([getOr(this.title, 'title', data), get('subtitle', data)].filter(Boolean).join(' – '));
+      this.titleService.setTitle(this.title());
     })
   }
 
