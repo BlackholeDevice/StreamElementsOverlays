@@ -38,7 +38,7 @@ mat-list.mdc-list {
 
 .center-container {
   position: relative;
-  width: 50%;
+  width: calc(100% - 1vh);
   left: 50%;
   transform: translateX(-50%);
   height: fit-content;

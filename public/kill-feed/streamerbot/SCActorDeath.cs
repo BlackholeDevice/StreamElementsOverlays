@@ -87,7 +87,10 @@ public class CPHInlineActorDeath : CPHInlineBase
     {
         var matches = Regex.Match(line, ActorDeathEventPattern);
 
-        var eventData = new Dictionary<string, object>();
+        var eventData = new Dictionary<string, object>
+        {
+            { "eventType", "Actor Death" }
+        };
         if (!matches.Success)
         {
             return eventData;
@@ -208,7 +211,7 @@ public class CPHInlineActorDeath : CPHInlineBase
             { "smg", "SMG" },
             { "energy", "laser"}
         }, ref weapon);
-        
+
         var parts = weapon.Split('_').Reverse().ToArray();
         weapon = ToTitleCase(string.Join(" ", parts));
     }

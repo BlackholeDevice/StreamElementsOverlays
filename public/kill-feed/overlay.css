@@ -1,46 +1,46 @@
 * {
-    font-family: '{{font}}', sans-serif;
-    color: {{fontColor}};
-    font-size: {{fontSize}}px;
-    overflow: hidden;
-    -webkit-text-stroke-width: {{fontOutlineThickness}}px;
-    -webkit-text-stroke-color: {{fontOutlineColor}};
+  font-family: '{{font}}', sans-serif;
+  color: {{fontColor}};
+  font-size: {{fontSize}}px;
+  overflow: hidden;
+  -webkit-text-stroke-width: {{fontOutlineThickness}}px;
+  -webkit-text-stroke-color: {{fontOutlineColor}};
 }
 
 .fade {
-    animation: 1s fade forwards;
+  animation: 1s fade forwards;
 }
 
 #main-container {
-    display: flex;
-    flex-direction: column;
-    margin: 5px;
-    align-items: {{alignment}};
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  align-items: {{alignment}};
 }
 
 span {
-    letter-spacing: {{letterSpacing}}px;
-    margin-bottom: {{lineSpacing}}px;
+  letter-spacing: {{letterSpacing}}px;
+  margin-bottom: {{lineSpacing}}px;
 }
 
 .slide {
-    animation: 250ms slide-in forwards;
+  animation: 250ms slide-in forwards;
 }
 
 @keyframes fade {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes slide-in {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(0);
-    }
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

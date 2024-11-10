@@ -43,6 +43,12 @@
     "value": 5,
     "group": "Options"
   },
+  "filter": {
+    "type": "text",
+    "label": "Player Filter",
+    "value": "",
+    "group": "Options"
+  },
   "font": {
     "type": "googleFont",
     "label": "Font",

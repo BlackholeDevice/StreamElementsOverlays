@@ -10,7 +10,7 @@
         <mat-list-item><a mat-button color="accent" href="https://streamer.bot/">Streamer.bot</a> (<a mat-button color="accent" href="https://streamer.bot/api/releases/streamer.bot/latest/download">direct download</a>)</mat-list-item>
       </mat-list>
     </mat-expansion-panel>
-    <mat-expansion-panel>
+    <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>Installation</mat-panel-title>
       </mat-expansion-panel-header>
@@ -23,7 +23,7 @@
         <mat-list-item><app-content-url url="kill-feed/data.json">data.json</app-content-url></mat-list-item>
       </mat-list>
     </mat-expansion-panel>
-    <mat-expansion-panel expanded>
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Streamer.bot Setup</mat-panel-title>
       </mat-expansion-panel-header>
@@ -209,7 +209,7 @@
           </mat-list>
         </mat-expansion-panel>
 
-        <mat-expansion-panel expanded>
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>Customization</mat-panel-title>
           </mat-expansion-panel-header>
@@ -265,6 +265,7 @@
           <mat-list>
             <mat-list-item>Show NPCs: Whether NPCs should be shown by the overlay. Default: checked</mat-list-item>
             <mat-list-item>Fade Time: How long each event should be shown (in seconds)</mat-list-item>
+            <mat-list-item>Player Filter: Comma separated list of names. If specified, kills that don't include one of these names will be ignored. Not case sensitive</mat-list-item>
           </mat-list>
         </mat-expansion-panel>
         <mat-expansion-panel>
