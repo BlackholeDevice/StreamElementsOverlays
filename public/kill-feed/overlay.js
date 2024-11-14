@@ -1,5 +1,5 @@
 /* globals StreamerbotClient, $ */
-const version = '2.0.0';
+const version = '2.0.1';
 let config = {};
 const dupeFix = {}
 const socketModes = {
@@ -65,7 +65,7 @@ function getIcon(icon) {
     return '';
   }
 
-  return `<img src="${icon}" height="${config.fontSize}">`;
+  return `<img src="${icon}" alt="kill icon" height="${config.fontSize}">`;
 }
 
 function parseKillMessage(data) {
@@ -98,7 +98,7 @@ function isNpcOrDupe(data) {
 }
 
 function isAllowedPlayer({attacker, victim}) {
-  return !config.filter.length || config.filter.includes(attacker.toLowerCase()) || config.filter.includes(victim.toLowerCase());
+  return !config.shouldFilter || !config.filter.length || config.filter.includes(attacker.toLowerCase()) || config.filter.includes(victim.toLowerCase());
 }
 
 function addElement(element) {

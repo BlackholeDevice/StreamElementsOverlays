@@ -43,6 +43,12 @@
     "value": 5,
     "group": "Options"
   },
+  "shouldFilter": {
+    "type": "checkbox",
+    "label": "Filter by players?",
+    "value": false,
+    "group": "Options"
+  },
   "filter": {
     "type": "text",
     "label": "Player Filter",
