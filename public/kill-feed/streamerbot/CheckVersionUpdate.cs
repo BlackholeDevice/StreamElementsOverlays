@@ -14,7 +14,7 @@ class CheckVersionUpdate : CPHInlineBase
         {
             return false;
         }
-        remoteVersion = Regex.Replace("^v", "", remoteVersion);
+        remoteVersion = Regex.Replace(remoteVersion, "^v", "");
         var remote = SemVersion.Parse(remoteVersion, SemVersionStyles.Any);
         var local = SemVersion.Parse(args["version"] as string, SemVersionStyles.Strict);
 
