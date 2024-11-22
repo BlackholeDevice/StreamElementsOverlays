@@ -1,8 +1,11 @@
 ﻿using System.Text.RegularExpressions;
 using Streamer.bot.Plugin.Interface;
 
-public class CPHInlineSCLogReader : CPHInlineBase
+namespace StreamerBot;
+
+public class ScLogReader : CPHInlineBase
 {
+    private static string Action = "SC Log Reader";
     public bool Execute()
     {
         var line = (string)args["line"];
@@ -17,6 +20,7 @@ public class CPHInlineSCLogReader : CPHInlineBase
         CPH.LogInfo($"SC Log Reader - Running log action for event type '{eventType}': '{nextAction}'");
         CPH.SetArgument("line", line);
         CPH.SetArgument("eventType", eventType);
+        CPH.SetArgument("handle", CPH.GetGlobalVar<string>("scHandle"));
         CPH.RunAction(nextAction);
         return true;
     }

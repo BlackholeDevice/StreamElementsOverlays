@@ -2,6 +2,8 @@
 using System.Text;
 using Streamer.bot.Plugin.Interface;
 
+namespace StreamerBot;
+
 public class IsDuplicateEvent : CPHInlineBase
 {
     public bool Execute()

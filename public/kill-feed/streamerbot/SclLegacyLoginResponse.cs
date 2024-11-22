@@ -1,7 +1,9 @@
 ﻿using System.Text.RegularExpressions;
 using Streamer.bot.Plugin.Interface;
 
-public class CPHInlineSCLegacyLoginResponse : CPHInlineBase
+namespace StreamerBot;
+
+public class SclLegacyLoginResponse : CPHInlineBase
 {
     public bool Execute()
     {

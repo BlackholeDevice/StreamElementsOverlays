@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Windows;
 using System.Text.RegularExpressions;
 using Streamer.bot.Plugin.Interface;
 
-public class CPHInlineActorDeath : CPHInlineBase
+namespace StreamerBot;
+
+public class ScActorDeath : CPHInlineBase
 {
     private static readonly Dictionary<string, int> ActorDeathDataMapping = new()
     {
@@ -73,14 +76,8 @@ public class CPHInlineActorDeath : CPHInlineBase
 
     private void BroadcastEvent(Dictionary<string, object> data)
     {
-        const string broadcastAction = "Overlays - Broadcast JSON";
-        if (!CPH.ActionExists(broadcastAction))
-        {
-            return;
-        }
-
         CPH.SetArgument("websocketData", data);
-        CPH.RunAction(broadcastAction);
+        CPH.RunActionById("d36ab08f-16da-4015-9bdd-6c1b5ab7a2c5");
     }
 
     private Dictionary<string, object> ParseEvent(string line)
@@ -211,7 +208,7 @@ public class CPHInlineActorDeath : CPHInlineBase
             { "smg", "SMG" },
             { "energy", "laser"}
         }, ref weapon);
-
+        
         var parts = weapon.Split('_').Reverse().ToArray();
         weapon = ToTitleCase(string.Join(" ", parts));
     }
