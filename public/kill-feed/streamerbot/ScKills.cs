@@ -4,7 +4,7 @@ namespace StreamerBot;
 
 public class ScKills : CPHInlineBase
 {
-    private const string Action = "SC Kills";
+    private const string Action = "Star Citizen - Hooks - Kills";
 
     public bool Execute()
     {
@@ -26,14 +26,26 @@ public class ScKills : CPHInlineBase
             return true;
         }
 
+        CreateClipIfNotExists();
         RunPlayerKillHooks();
         NotifyScTools();
         return true;
     }
+    
+    private void CreateClipIfNotExists()
+    {
+        if (args.ContainsKey("createClipUrl"))
+        {
+            return;
+        }
+
+        Log("No clip exists yet. Attempting to create one.");
+        CPH.RunActionById("3eab67b8-3d37-4d30-8924-e3cfe082e4c8");
+    }
 
     private void NotifyScTools()
     {
-        CPH.RunActionById("fe2893af-ee1f-414b-b1a9-f4c015b32a9c");
+        CPH.RunActionById("287bfdc7-a2c9-479a-8623-c8be7cb9a2e8");
     }
 
     private bool VictimIsAnNpc()

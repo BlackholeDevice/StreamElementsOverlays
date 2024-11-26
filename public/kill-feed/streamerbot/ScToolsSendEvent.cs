@@ -10,13 +10,13 @@ namespace StreamerBot;
 public class ScToolsSendEvent : CPHInlineBase
 {
     private const string Api = "https://starcitizentool.com/api/v1";
-    private const string Action = "SCTools Send Event";
+    private const string Action = "SCTools - Send Event";
 
     public bool Execute()
     {
-        if (YouArentTheAttacker() || YouKilledYourself())
+        if (VictimIsAnNpc() || YouArentTheAttacker() || YouKilledYourself())
         {
-            Log("You either aren't the attacker or you killed yourself. Skipping SC Tool event");
+            Log("You either aren't the attacker, killed yourself, or the victim was an NPC. Skipping SC Tools event");
             return true;
         }
 
@@ -60,6 +60,11 @@ public class ScToolsSendEvent : CPHInlineBase
         return args["attacker"].ToString() != args["handle"].ToString();
     }
 
+    private bool VictimIsAnNpc()
+    {
+        return CPH.TryGetArg("victimIsNpc", out bool victimIsNpc) && victimIsNpc;
+    }
+
     private void Log(string message)
     {
         CPH.LogInfo($"{Action} - {message}");
@@ -80,13 +85,14 @@ public class ScToolsSendEvent : CPHInlineBase
         }
 
         [JsonProperty("victim_name")] public string? Victim => AsString(Args, "victim");
+        [JsonProperty("victim_engagement")] public string? VictimEngagement => $"In {Zone}";
 
-        [JsonProperty("victim_engagement")]
-        public string? VictimEngagement => !"unknown".Equals(Weapon) ? $"Killed in {Zone} with {Weapon}" : Zone;
+        [JsonProperty("attacker_engagement")]
+        public string? AttackerEngagement => Weapon != null ? $"Using {Weapon}" : null;
 
-        [JsonProperty("attacker_engagement")] public static string? AttackerEngagement => null;
         [JsonProperty("clip_url")] public string? ClipUrl => AsString(Args, "createClipUrl");
         [JsonProperty("timestamp")] public string? Timestamp => AsString(Args, "timestamp");
+        [JsonProperty("game_mode")] public string? GameMode => AsString(Args, "gamerules");
 
         private string? Zone => AsString(Args, "zone");
         private string? Weapon => AsString(Args, "weapon");

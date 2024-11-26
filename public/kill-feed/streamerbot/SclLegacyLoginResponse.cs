@@ -8,7 +8,7 @@ public class SclLegacyLoginResponse : CPHInlineBase
     public bool Execute()
     {
         var handle = GetHandle((string)args["line"]);
-        CPH.LogInfo($"SCL Legacy login response - Detecting SC login username is {handle}");
+        CPH.LogInfo($"Star Citizen - Events - Legacy login response - Detecting SC login username is {handle}");
         CPH.SetGlobalVar("scHandle", handle);
         return true;
     }

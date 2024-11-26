@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Windows;
 using System.Text.RegularExpressions;
+using System.IO;
 using Streamer.bot.Plugin.Interface;
 
 namespace StreamerBot;
@@ -51,8 +51,8 @@ public class ScActorDeath : CPHInlineBase
 
     private static readonly string ActorDeathEventPattern =
         @"^<(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z)> \[(\w+)\] <Actor Death> CActor::Kill: '(.*)' \[(\d+)\] in zone '(.*)' killed by '(.*)' \[(\d+)\] using '(.*)' \[Class (.*)\] with damage type '(.+)' from direction x: (-?\d+(\.\d+)?), y: (-?\d+(\.\d+)?), z: (-?\d+(\.\d+)?) \[Team_ActorTech\]\[Actor\]$";
-
-    private const string Action = "SCL Actor Death";
+    
+    private const string Action = "Star Citizen - Events - Actor Death";
 
     public bool Execute()
     {
@@ -60,9 +60,71 @@ public class ScActorDeath : CPHInlineBase
         var line = (string)args["line"];
         var dict = ParseEvent(line);
         Log($"{dict["attacker"]} killed {dict["victim"]}");
+        SetCurrentGameMode(dict);
         SetArgs(dict);
         BroadcastEvent(dict);
         return true;
+    }
+
+    private void SetCurrentGameMode(Dictionary<string, object> dict)
+    {
+        var gameMode = CPH.GetGlobalVar<string>("scGameMode", false) ?? ReadGameModeFromLogs();
+        dict.Add("gamerules", gameMode);
+    }
+
+    private string ReadGameModeFromLogs()
+    {
+        Log("Current gamemode unknown. Attempting to read from log file.");
+        if (!CPH.TryGetArg("filePath", out _))
+        {
+            Log("Log file not available. Setting to null.");
+            CPH.SetGlobalVar("scGameMode", null, false);
+            return null;
+        }
+        
+        var currentLine = (string)args["line"];
+        Log("Backed up current line.");
+        try
+        {
+            Log("Reading contents of log file");
+            var finalEvent = FindFinalEventFromFile();
+            CallContextEstablisherDone(finalEvent);
+            if (CPH.TryGetArg("gamerules", out string gameMode))
+            {
+                Log($"Found game mode to be '{gameMode}'");
+                return gameMode;
+            }
+        }
+        finally
+        {
+            Log("Restoring current line from backup");
+            CPH.SetArgument("line", currentLine);
+        }
+
+        return "";
+    }
+
+    private string FindFinalEventFromFile()
+    {
+        using var file = File.Open(args["filePath"].ToString()!, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        using var stream = new StreamReader(file);
+        var finalEvent = "";
+        while (stream.ReadLine() is { } buffer)
+        {
+            if (buffer.Contains("Context Establisher Done"))
+            {
+                finalEvent = buffer;
+            }
+        }
+
+        return finalEvent;
+    }
+
+
+    private void CallContextEstablisherDone(string line)
+    {
+        CPH.SetArgument("line", line);
+        CPH.RunActionById("1d2c12c4-c990-45a4-ac5d-80b89256449a");
     }
 
 

@@ -4,7 +4,7 @@ namespace StreamerBot;
 
 public class ScDeath : CPHInlineBase
 {
-    private const string Action = "SC Death";
+    private const string Action = "Star Citizen - Hooks - Deaths";
 
     public bool Execute()
     {
@@ -13,13 +13,14 @@ public class ScDeath : CPHInlineBase
             Log("You didn't die. Skipping death hooks.");
             return true;
         }
-        
+
         RunYouDied();
         if (YouKilledYourself())
         {
             Log("Ya played yaself. Skipping non-suicide hooks.");
             return true;
         }
+
         RunDiedButDidntKillYourself();
 
         return true;
