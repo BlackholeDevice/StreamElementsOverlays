@@ -26,7 +26,7 @@ public class ClipsCreateClip : CPHInlineBase
             CPH.ObsConnect();
         }
 
-        return !CPH.ObsIsConnected() || !CPH.ObsIsConnected();
+        return !CPH.ObsIsConnected() || !CPH.ObsIsStreaming();
     }
 
     private void CreateClip()
