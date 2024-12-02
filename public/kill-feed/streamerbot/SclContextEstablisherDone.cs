@@ -8,7 +8,6 @@ public class SclContextEstablisherDone : CPHInlineBase
 {
     private const string Action = "Star Citizen - Events - Context Establisher Done";
 
-
     // <2024-11-24T20:41:34.345Z> [Notice] <Context Establisher Done> establisher="Network" runningTime=4.754377 map="megamap" gamerules="EA_FreeFlight" sessionId="a26102d8deaf5dc3527163000b81755d" [Team_Network][Network][Replication][Loading][Persistence]
     private const string ContextEstablisherDoneEventPattern =
         @"<(.*)> \[([A-Za-z_]+)\] <(Context Establisher Done)> establisher=""([A-Za-z]+)"" runningTime=(\d+(\.\d+)?) map=""([A-Za-z_]+)"" gamerules=""([A-Za-z_]+)"" sessionId=""([0-9a-f\-]+)"" .*";
@@ -29,7 +28,8 @@ public class SclContextEstablisherDone : CPHInlineBase
         var line = (string)args["line"];
         var data = ParseEvent(line);
         SetArgs(data);
-        CPH.SetGlobalVar("scGameMode", data["gamerules"].ToString(), false);
+        CPH.SetGlobalVar("scGameMode", data["gamerules"].ToString());
+        Log($"Detecting current game mode as {data["gamerules"]}");
         return true;
     }
 

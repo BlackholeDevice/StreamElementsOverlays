@@ -17,6 +17,6 @@ public class SclLegacyLoginResponse : CPHInlineBase
     {
         // <2024-11-03T23:49:03.518Z> [Notice] <Legacy login response> [CIG-net] User Login Success - Handle[BlackholeDevice] - Time[204536566] [Team_GameServices][Login]
         var match = Regex.Match(text, @"User Login Success - Handle\[(.*)\] - Time");
-        return match.Success ? match.Groups[0].Value : string.Empty;
+        return match.Success ? match.Groups[1].Value : string.Empty;
     }
 }

@@ -68,7 +68,7 @@ public class ScActorDeath : CPHInlineBase
 
     private void SetCurrentGameMode(Dictionary<string, object> dict)
     {
-        var gameMode = CPH.GetGlobalVar<string>("scGameMode", false) ?? ReadGameModeFromLogs();
+        var gameMode = CPH.GetGlobalVar<string>("scGameMode") ?? ReadGameModeFromLogs();
         dict.Add("gamerules", gameMode);
     }
 
@@ -78,7 +78,7 @@ public class ScActorDeath : CPHInlineBase
         if (!CPH.TryGetArg("filePath", out _))
         {
             Log("Log file not available. Setting to null.");
-            CPH.SetGlobalVar("scGameMode", null, false);
+            CPH.SetGlobalVar("scGameMode", null);
             return null;
         }
         
