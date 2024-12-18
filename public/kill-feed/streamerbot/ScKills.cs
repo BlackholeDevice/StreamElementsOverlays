@@ -55,12 +55,12 @@ public class ScKills : CPHInlineBase
 
     private bool PlayerKilledThemselves()
     {
-        return args["attacker"].ToString() == args["victim"].ToString();
+        return args["deathType"].ToString() == "Suicide";
     }
 
     private bool YouAreNotAttacker()
     {
-        return args["attacker"].ToString() != args["handle"].ToString();
+        return args["deathType"].ToString() != "Kill";
     }
 
     private void RunPlayerKillHooks()

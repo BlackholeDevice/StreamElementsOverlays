@@ -25,34 +25,21 @@ public class TwitchCreateClip : CPHInlineBase
     {
         CPH.SetArgument("createClipUrl", clipUrl);
         Log("Setting clip message.");
-        FetchCustomMessages();
-        CPH.TryGetArg("twitchClipMessage", out string clipMessage);
+        var clipMessage = CPH.GetGlobalVar<string>("twitchClipMessage");
         if (IsActorDeathEvent())
         {
             Log("Detected star citizen actor death event. Customizing clip message.");
-            clipMessage = GetActorDeathSpecificClipMessage();
+            clipMessage = CPH.GetGlobalVar<string>("starCitizenKillMessage");
             CPH.CreateStreamMarker(args["victim"].ToString());
         }
-
+        
         Log($"Final clip message: {clipMessage}");
         CPH.SetArgument("message", $"{clipMessage} {clipUrl}");
     }
-
-    private string GetActorDeathSpecificClipMessage()
-    {
-        CPH.RunActionById("88fb02b8-8a4c-4919-b1a0-3a5519f2a4fe");
-        CPH.TryGetArg("message", out string message);
-        return message;
-    }
-
+    
     private bool IsActorDeathEvent()
     {
         return CPH.TryGetArg("eventType", out string eventType) && eventType == "Actor Death";
-    }
-
-    private void FetchCustomMessages()
-    {
-        CPH.RunActionById("42cccec9-7c9d-4dfb-9b66-3960a88c29d9");
     }
 
     private string GenerateClip()

@@ -168,6 +168,7 @@ public class ScActorDeath : CPHInlineBase
         FormatZoneName(eventData);
         FormatWeapon(eventData);
         FormatDamageType(eventData);
+        DetermineDeathType(eventData);
 
         return eventData;
     }
@@ -293,6 +294,41 @@ public class ScActorDeath : CPHInlineBase
     private static void ProcessReplacements(Dictionary<string, string> replacements, ref string text)
     {
         text = replacements.Aggregate(text, (current, kvp) => Regex.Replace(current, kvp.Key, kvp.Value));
+    }
+
+    private void DetermineDeathType(Dictionary<string, object> data)
+    {
+        var attacker = data["attacker"].ToString();
+        var victim = data["victim"].ToString();
+        var damageType = data["damageType"].ToString();
+        var handle = args["handle"].ToString();
+
+        string deathType;
+
+        if (victim == handle && (attacker == handle || damageType == "Suicide")) 
+        {
+            deathType = "Suicide";
+        } 
+        else if (victim == handle) 
+        {
+            deathType = "Death";
+        } 
+        else if (attacker == handle) 
+        {
+            deathType = "Kill";
+        } 
+        else if (attacker == victim || damageType == "Suicide") 
+        {
+            deathType = "Selfkill";
+        } 
+        else 
+        {
+            deathType = "Other";
+        }
+        
+        Log($"Death Type: {deathType}");
+
+        data.Add("deathType", deathType);
     }
 
     private void Log(string message)

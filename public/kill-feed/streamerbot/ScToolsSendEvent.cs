@@ -20,8 +20,19 @@ public class ScToolsSendEvent : CPHInlineBase
             return true;
         }
 
+        if (!HasGameMode())
+        {
+            Log("Missing game mode. Skipping SC Tools event");
+            return true;
+        }
+
         PostEventToScTool();
         return true;
+    }
+
+    private bool HasGameMode()
+    {
+        return CPH.TryGetArg("gamerules", out string gameMode) && !string.IsNullOrWhiteSpace(gameMode);
     }
 
     private void PostEventToScTool()
@@ -52,12 +63,12 @@ public class ScToolsSendEvent : CPHInlineBase
 
     private bool YouKilledYourself()
     {
-        return args["attacker"].ToString() == args["victim"].ToString();
+        return args["deathType"].ToString() == "Suicide";
     }
 
     private bool YouArentTheAttacker()
     {
-        return args["attacker"].ToString() != args["handle"].ToString();
+        return args["deathType"].ToString() != "Kill";
     }
 
     private bool VictimIsAnNpc()

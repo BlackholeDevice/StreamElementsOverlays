@@ -28,12 +28,13 @@ public class ScDeath : CPHInlineBase
 
     private bool YouKilledYourself()
     {
-        return args["attacker"].ToString() == args["victim"].ToString() && args["damageType"].ToString() == "Suicide";
+        return args["deathType"].ToString() == "Suicide";
     }
 
     private bool YouDied()
     {
-        return args["victim"].ToString() == args["handle"].ToString();
+        IList<string> deathTypes = new List<string> { "Death", "Suicide" };
+        return deathTypes.Contains(args["deathType"].ToString()!);
     }
 
     private void RunYouDied()
