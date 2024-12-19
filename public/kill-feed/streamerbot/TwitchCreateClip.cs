@@ -50,9 +50,21 @@ public class TwitchCreateClip : CPHInlineBase
             return debugClipUrl;
         }
 
-        Log("Delaying 5 seconds to prevent clip getting cut off too soon");
-        Thread.Sleep(5000);
+        Thread.Sleep(GetClipDelay());
         return CPH.CreateClip().Url;
+    }
+
+    private int GetClipDelay()
+    {
+        var delay = CPH.GetGlobalVar<int>("twitchClipDelay");
+        if (delay == 0)
+        {
+            delay = 10;
+        }
+        
+        Log($"Delaying {delay} seconds to prevent clip getting cut off too soon");
+
+        return delay * 1000;
     }
 
     private bool IsNotStreaming()

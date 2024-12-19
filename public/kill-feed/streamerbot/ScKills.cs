@@ -26,21 +26,53 @@ public class ScKills : CPHInlineBase
             return true;
         }
 
+        var waitForClip = ShouldWaitForClipGeneration();
+
+        if (!waitForClip)
+        {
+            RunPlayerKillHooks();
+        }
+        
         CreateClipIfNotExists();
-        RunPlayerKillHooks();
+        if (waitForClip)
+        {
+            RunPlayerKillHooks();
+        }
+
         NotifyScTools();
         return true;
     }
     
     private void CreateClipIfNotExists()
     {
-        if (args.ContainsKey("createClipUrl"))
+        if (args.ContainsKey("createClipUrl") || !ShouldClipKills())
         {
             return;
         }
 
         Log("No clip exists yet. Attempting to create one.");
         CPH.RunActionById("3eab67b8-3d37-4d30-8924-e3cfe082e4c8");
+    }
+
+    private bool ShouldClipKills()
+    {
+        return CheckGlobalBool("scClipKills");
+    }
+
+    private bool ShouldWaitForClipGeneration()
+    {
+        return CheckGlobalBool("twitchClipWaitForClip");
+    }
+
+    private bool CheckGlobalBool(string global, bool defaultValue = true)
+    {
+        var value = CPH.GetGlobalVar<string>(global);
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            value = defaultValue.ToString();
+        }
+        
+        return bool.Parse(value);
     }
 
     private void NotifyScTools()

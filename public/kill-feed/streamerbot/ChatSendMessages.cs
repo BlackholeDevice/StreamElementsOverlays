@@ -14,18 +14,24 @@ public class ChatSendMessages : CPHInlineBase
     private void ConfigureDiscordWebhook()
     {
         CPH.SetArgument("discordWebhookUsername", CPH.GetGlobalVar<string>("discordWebhookUsername"));
-        var discordWebhook = CPH.GetGlobalVar<string>("discordWebhook");
-        var discordWebhookUsername = CPH.GetGlobalVar<string>("discordWebhookUsername");
-        var discordWebhookAvatar = CPH.GetGlobalVar<string>("discordWebhookAvatar");
+        var discordWebhook = DefaultString("discordWebhook");
+        var discordWebhookUsername = DefaultString("discordWebhookUsername");
+        var discordWebhookAvatar = DefaultString("discordWebhookAvatar");
         if (CPH.TryGetArg("deathType", out string deathType) && deathType == "Kill")
         {
-            discordWebhook = CPH.GetGlobalVar<string>("discordWebhookScKill");
-            discordWebhookUsername = CPH.GetGlobalVar<string>("discordWebhookUsernameScKill");
-            discordWebhookAvatar = CPH.GetGlobalVar<string>("discordWebhookAvatarScKill");
+            discordWebhook = DefaultString("discordWebhookScKill", discordWebhook);
+            discordWebhookUsername = DefaultString("discordWebhookUsernameScKill", discordWebhookUsername);
+            discordWebhookAvatar = DefaultString("discordWebhookAvatarScKill", discordWebhookAvatar);
         }
         CPH.SetArgument("discordWebhook", discordWebhook);
         CPH.SetArgument("discordWebhookUsername", ParseTemplates(discordWebhookUsername));
         CPH.SetArgument("discordWebhookAvatar", ParseTemplates(discordWebhookAvatar));
+    }
+
+    private string DefaultString(string key, string defaultValue = "")
+    {
+        var value = CPH.GetGlobalVar<string>(key);
+        return string.IsNullOrWhiteSpace(value) ? defaultValue : value;
     }
 
     private void ParseMessage()
