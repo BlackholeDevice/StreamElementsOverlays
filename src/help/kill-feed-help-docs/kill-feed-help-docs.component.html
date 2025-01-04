@@ -2,7 +2,7 @@
   <h1>How to</h1>
   <p>This guide will provide a rough how-to on how to use the Kill Log overlay</p>
   <mat-accordion togglePosition="before">
-    <mat-expansion-panel expanded>
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Installation</mat-panel-title>
       </mat-expansion-panel-header>
@@ -38,7 +38,7 @@
         </mat-list-item>
       </mat-list>
     </mat-expansion-panel>
-    <mat-expansion-panel>
+    <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>Streamer.bot Setup</mat-panel-title>
       </mat-expansion-panel-header>
@@ -279,34 +279,54 @@
             <mat-panel-title>Customization</mat-panel-title>
           </mat-expansion-panel-header>
           <p>
+            The following variables can be configured in Streamerbot to customize behavior and messaging. This will not be set automatically.
+            Note: If a variable is not defined before Streamerbot attempts to use it, it will be automatically created with type = "unknown".
+            If this happens, you will not be able to edit the value. You will need to manually delete the variable and recreate it.
+          </p>
+          <table mat-table [dataSource]="variables()">
+            @for (column of columns() | keyvalue; track column.key) {
+              <ng-container [matColumnDef]="column.key">
+                <th mat-header-cell *matHeaderCellDef>{{ column.value }}</th>
+                <td mat-cell *matCellDef="let variable">{{ variable[column.key] }}</td>
+              </ng-container>
+            }
+
+            <tr mat-header-row *matHeaderRowDef="columnHeaders()"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnHeaders()"></tr>
+          </table>
+
+          <p>The following variables are available to use in kill events</p>
+          <mat-list>
+            <mat-list-item><code>%victim%</code>: Victim name</mat-list-item>
+            <mat-list-item><code>%attacker%</code>: Attacker name</mat-list-item>
+            <mat-list-item><code>%zone%</code>: Victim location</mat-list-item>
+            <mat-list-item><code>%weapon%</code>: Weapon victim was killed with</mat-list-item>
+            <mat-list-item><code>%damageType%</code>: Type of damage that killed the victim</mat-list-item>
+            <mat-list-item><code>%deathType%</code>: Type of death. This will be one of the following values: Kill, Death, Other, Selfkill, Suicide</mat-list-item>
+          </mat-list>
+
+          <p>
+            Note: It is not necessary to add <code>%createClipUrl%</code> to the message because this is already
+            added by other actions.
+            Other variables are available but are not documented as they are not user friendly.
+          </p>
+
+          <p>
             A couple actions are available to customize your events. These actions <u>SHOULD ONLY BE IMPORTED ONCE</u>.
             They can be excluded from all future imports. If you fail to exclude them from future imports,
             you will need to apply your customizations again
           </p>
           <mat-list>
-            <mat-list-item>
-              <p><u>Chat - Custom Messages</u>: Clip messages can be customized here.
-                The <code>%twitchClipMessage%</code> variable will be used when !clip is used.
-                <code>%starCitizenKillMessage%</code> will be used when clip generation is triggered by a player kill.
-              </p>
-
-              <p>The following variables are available to use in <code>%starCitizenKillMessage%</code></p>
-              <mat-list>
-                <mat-list-item><code>%victim%</code>: Victim name</mat-list-item>
-                <mat-list-item><code>%attacker%</code>: Attacker name</mat-list-item>
-                <mat-list-item><code>%zone%</code>: Victim location</mat-list-item>
-                <mat-list-item><code>%weapon%</code>: Weapon victim was killed with</mat-list-item>
-                <mat-list-item><code>%damageType%</code>: Type of damage that killed the victim</mat-list-item>
-              </mat-list>
-              <p>
-                Note: It is not necessary to add <code>%createClipUrl%</code> to the message because this is already
-                added by other actions.
-                Other variables are available but are not documented as they are not user friendly.
-              </p>
-            </mat-list-item>
-            <mat-list-item><u>SCDA You died</u>: This action will be triggered every time you die, regardless of cause</mat-list-item>
-            <mat-list-item><u>SCDA You died (Not a backspace)</u>: This action will be triggered every time you die to something that was not a suicide</mat-list-item>
-            <mat-list-item><u>SCDA You killed someone else</u>: This action will be triggered every time you kill another player</mat-list-item>
+            <mat-list-item><u>Star Citizen - Hooks - Custom - You died</u>: This action will be triggered every time you die, regardless of cause</mat-list-item>
+            <mat-list-item><u>Star Citizen - Hooks - Custom - You died (Not a backspace)</u>: This action will be triggered every time you die to something that was not a suicide</mat-list-item>
+            <mat-list-item><u>Star Citizen - Hooks - Custom - You killed someone else</u>: This action will be triggered every time you kill another player</mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>Troubleshooting</mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>• Kill / death hooks aren't getting triggered: Verify that your username was detected correctly. Check variables panel and make sure the <code>scHandle</code> variable is set correctly</mat-list-item>
+            <mat-list-item>• Player deaths are missed sometimes: This is a known issue. Every now and then, Streamerbot seems to ignore log messages and I'm not sure why</mat-list-item>
           </mat-list>
         </mat-expansion-panel>
       </mat-accordion>
