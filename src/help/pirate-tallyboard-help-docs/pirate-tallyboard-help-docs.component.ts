@@ -12,8 +12,7 @@ import {ContentUrlComponent} from '../content-url/content-url.component';
   selector: 'app-pirate-tallyboard-help-docs',
   templateUrl: './pirate-tallyboard-help-docs.component.html',
   styleUrl: './pirate-tallyboard-help-docs.component.scss',
-  standalone: true,
-  imports: [ConfiguratorComponent, MatButtonModule, MatIconModule, MatDialogModule, MatListModule, MatTreeModule, MatExpansionModule, ContentUrlComponent]
+  imports: [MatButtonModule, MatIconModule, MatDialogModule, MatListModule, MatTreeModule, MatExpansionModule, ContentUrlComponent]
 })
 export class PirateTallyboardHelpDocsComponent {
   private dialog = inject(MatDialog);

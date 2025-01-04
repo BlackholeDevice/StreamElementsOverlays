@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {RouterLink, RouterModule} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {NavItem} from './nav-item.model';
 import {
@@ -14,7 +14,6 @@ import {
   selector: 'app-nav-list',
   templateUrl: './nav-list.component.html',
   styleUrl: './nav-list.component.scss',
-  standalone: true,
   imports: [RouterModule, MatIconModule, MatListItem, MatListItemIcon, MatListItemLine, MatListSubheaderCssMatStyler, MatNavList]
 })
 export class NavListComponent {

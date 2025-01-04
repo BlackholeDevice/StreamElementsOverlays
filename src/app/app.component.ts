@@ -8,7 +8,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
-import {KeyValuePipe} from '@angular/common';
 import {NavItem} from './nav-list/nav-item.model';
 import {NavListComponent} from './nav-list/nav-list.component';
 import {Title} from '@angular/platform-browser';
@@ -17,8 +16,7 @@ import {Title} from '@angular/platform-browser';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  standalone: true,
-  imports: [RouterModule, MatButtonModule, MatIconModule, MatSidenavModule, MatToolbarModule, MatListModule, KeyValuePipe, NavListComponent]
+  imports: [RouterModule, MatButtonModule, MatIconModule, MatSidenavModule, MatToolbarModule, MatListModule, NavListComponent]
 })
 export class AppComponent implements OnInit {
   public readonly overlays = signal<NavItem[]>([
@@ -36,11 +34,11 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     this.router.events.pipe(
-        filter(event => event instanceof ActivationStart),
-        map(get('snapshot.data')),
-        shareReplay(1),
-        distinctUntilChanged(),
-        takeUntilDestroyed(this.destroyRef)
+      filter(event => event instanceof ActivationStart),
+      map(get('snapshot.data')),
+      shareReplay(1),
+      distinctUntilChanged(),
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe((data: Data) => {
       this.title.set([getOr(this.title, 'title', data), get('subtitle', data)].filter(Boolean).join(' – '));
       this.titleService.setTitle(this.title());

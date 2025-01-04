@@ -28,7 +28,6 @@ interface Filter {
   selector: 'app-kill-log',
   templateUrl: './kill-log.component.html',
   styleUrl: './kill-log.component.scss',
-  standalone: true,
   imports: [
     MatExpansionModule,
     MatCardModule,
@@ -117,7 +116,6 @@ export class KillLogComponent implements OnInit {
         this.snackbar.open(`Failed to connect to ${config.scheme}://${config.host}:${config.port}${config.endpoint}: ${err.message}`, 'Close', {politeness: 'assertive'});
         return throwError(() => err);
       })
-
     ).subscribe((event: KillEvent) => this.processEvent(event));
   }
 
@@ -147,8 +145,8 @@ export class KillLogComponent implements OnInit {
   }
 
   public relativize(timestamp: number, now: number): string {
-    const diff = (now - timestamp)/1000;
-    if(diff < 60) {
+    const diff = (now - timestamp) / 1000;
+    if (diff < 60) {
       return 'a few moments ago'
     } else if (diff < 3600) {
       const minutes = ~~(diff / 60);
@@ -160,7 +158,7 @@ export class KillLogComponent implements OnInit {
   }
 
   private pluralize(n: number): string {
-    return n ==  1 ? '' : 's'
+    return n == 1 ? '' : 's'
   }
 
   private onFormChange(): void {

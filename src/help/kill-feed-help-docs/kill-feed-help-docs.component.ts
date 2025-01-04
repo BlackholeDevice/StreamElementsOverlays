@@ -9,7 +9,6 @@ import {RouterLink} from '@angular/router';
   selector: 'app-kill-feed-help-docs',
   templateUrl: './kill-feed-help-docs.component.html',
   styleUrl: './kill-feed-help-docs.component.scss',
-  standalone: true,
   imports: [MatListModule, MatExpansionModule, MatButtonModule, ContentUrlComponent, RouterLink]
 })
 export class KillFeedHelpDocsComponent {

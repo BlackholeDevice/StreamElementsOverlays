@@ -15,7 +15,6 @@ import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
   selector: 'app-configurator',
   templateUrl: './configurator.component.html',
   styleUrl: './configurator.component.scss',
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -23,8 +22,9 @@ import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
-    MatDialogModule],
-  providers: [NavigatorService],
+    MatDialogModule
+  ],
+  providers: [NavigatorService]
 })
 export class ConfiguratorComponent {
   private service = inject(NavigatorService);
