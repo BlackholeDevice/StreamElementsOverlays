@@ -55,6 +55,10 @@ export class KillFeedHelpDocsComponent {
     description: 'Whether clips should be generated for kills in Star Citizen',
     defaultValue: 'true'
   }, {
+    name: 'scEventLogs',
+    description: 'File path where to save events. If no path is specified, it events will be saved to the game folder as determined by the file tail. See %scSaveEvents%',
+    defaultValue: '<blank>'
+  }, {
     name: 'scGameMode',
     description: 'Active game mode detected in Star Citizen. This is set automatically by Streamerbot',
     defaultValue: '<blank>'
@@ -62,6 +66,10 @@ export class KillFeedHelpDocsComponent {
     name: 'scHandle',
     description: 'Player name detected in Star Citizen. This is set automatically by Streamerbot',
     defaultValue: '<blank>'
+  }, {
+    name: 'scSaveEvents',
+    description: 'If events should be persisted to CSV file. Currently, only Actor Death events are persisted. See %scEventLogs%',
+    defaultValue: 'false'
   }, {
     name: 'SCTOOLS_API_KEY',
     description: 'API Key to use for sending events to SCTools. This can be generated via SCTools.',

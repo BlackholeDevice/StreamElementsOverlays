@@ -94,18 +94,10 @@ public class ScToolsSendEvent : CPHInlineBase
         {
             return data.TryGetValue(field, out var value) ? value.ToString()! : null;
         }
-
-        [JsonProperty("victim_name")] public string? Victim => AsString(Args, "victim");
-        [JsonProperty("victim_engagement")] public string? VictimEngagement => $"In {Zone}";
-
-        [JsonProperty("attacker_engagement")]
-        public string? AttackerEngagement => Weapon != null ? $"Using {Weapon}" : null;
-
+        
         [JsonProperty("clip_url")] public string? ClipUrl => AsString(Args, "createClipUrl");
         [JsonProperty("timestamp")] public string? Timestamp => AsString(Args, "timestamp");
         [JsonProperty("game_mode")] public string? GameMode => AsString(Args, "gamerules");
-
-        private string? Zone => AsString(Args, "zone");
-        private string? Weapon => AsString(Args, "weapon");
+        [JsonProperty("log_line")] public string? LogLine => AsString(Args, "line");
     }
 }

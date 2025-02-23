@@ -22,7 +22,7 @@ public class ScLogReader : CPHInlineBase
         CPH.SetArgument("line", line);
         CPH.SetArgument("eventType", eventType);
         CPH.SetArgument("handle", CPH.GetGlobalVar<string>("scHandle"));
-        CPH.RunAction(nextAction);
+        CPH.RunAction(nextAction, false);
         return true;
     }
 
