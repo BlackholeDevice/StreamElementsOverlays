@@ -44,14 +44,18 @@ public class TwitchCreateClip : CPHInlineBase
 
     private string GenerateClip()
     {
+        Log("Generating clip...");
         var debugClipUrl = CPH.GetGlobalVar<string>("DEBUG_TWITCH_CLIP");
         if (debugClipUrl != null)
         {
+            Log($"Mocking clip generation. URL: {debugClipUrl}");
             return debugClipUrl;
         }
 
         Thread.Sleep(GetClipDelay());
-        return CPH.CreateClip().Url;
+        var url = CPH.CreateClip().Url;
+        Log($"Clip generated. URL: {url}");
+        return url;
     }
 
     private int GetClipDelay()

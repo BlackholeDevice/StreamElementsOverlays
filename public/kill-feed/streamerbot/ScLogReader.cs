@@ -19,14 +19,13 @@ public class ScLogReader : CPHInlineBase
         }
 
         CPH.LogInfo($"{Action} - Running log action for event type '{eventType}': '{nextAction}'");
-        CPH.SetArgument("line", line);
         CPH.SetArgument("eventType", eventType);
         CPH.SetArgument("handle", CPH.GetGlobalVar<string>("scHandle"));
         CPH.RunAction(nextAction, false);
         return true;
     }
 
-    public string GetEventData()
+    private string GetEventData()
     {
         if (!CPH.TryGetArg("data", out string data))
         {

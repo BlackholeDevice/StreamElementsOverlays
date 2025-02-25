@@ -4,7 +4,11 @@ name: Github Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches:
+      - main
+    paths-ignore:
+      - public/**
+      - .vscode/**
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
